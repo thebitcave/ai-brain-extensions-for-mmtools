@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +10,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
     public class AIBrainDebuggerEditor : EditorWindow
     {
+    
+        private GameObject _selectedGameObject;
+        private AIBrain _selectedBrain;
+        
         [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
         private static void Init()
         {
@@ -18,22 +23,46 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         private void Awake()
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         private void Update()
         {
-            throw new NotImplementedException();
+            if (Selection.activeObject == _selectedGameObject && _selectedBrain != null) return;
+            if (Selection.activeGameObject == null) return;
+            
+            _selectedGameObject = Selection.activeGameObject;
+            _selectedBrain = _selectedGameObject.GetComponent<AIBrain>();
         }
 
         private void OnInspectorUpdate()
         {
-            throw new NotImplementedException();
+            Repaint();
         }
 
         private void OnGUI()
         {
-            throw new NotImplementedException();
+            var titleStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold
+            };
+            var labelStyle = new GUIStyle(GUI.skin.label)
+            {
+                alignment = TextAnchor.MiddleCenter
+            };
+            if (_selectedBrain == null)
+            {
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT, labelStyle);
+            }
+            else if (!Application.isPlaying)
+            {
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING, labelStyle);
+            }
+            else
+            {
+                EditorGUI.LabelField(new Rect(4, 4, position.width - 8, C.AIBRAIN_ROW_HEIGHT), C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle);
+            }
         }
     }
 }

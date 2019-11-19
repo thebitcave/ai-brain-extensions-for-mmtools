@@ -28,5 +28,13 @@
         public const string LABEL_SET_AS_STARTING_STATE = "Set as starting state";
         public const string LABEL_GENERATE = "Generate";
         public const string LABEL_REMOVE_AI_SCRIPTS = "Remove AI Scripts";
+        
+        // AI Brain Debugger Settings
+
+        public const string AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrain Component attached.";
+        public const string AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
+        public const string AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL = "Debugging AIBrain for ";
+
+        public const int AIBRAIN_ROW_HEIGHT = 20;
     }
 }
