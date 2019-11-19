@@ -13,7 +13,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     
         private GameObject _selectedGameObject;
         private AIBrain _selectedBrain;
-        
+
         [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
         private static void Init()
         {
@@ -47,6 +47,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 alignment = TextAnchor.MiddleCenter,
                 fontStyle = FontStyle.Bold
             };
+            
             var labelStyle = new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter
@@ -61,8 +62,27 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             }
             else
             {
-                EditorGUI.LabelField(new Rect(4, 4, position.width - 8, C.AIBRAIN_ROW_HEIGHT), C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle);
+                EditorGUILayout.BeginVertical();
+                EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
+
+                var activeStatus = _selectedBrain.BrainActive
+                    ? C.AIBRAIN_DEBUGGER_ACTIVE_LABEL
+                    : C.AIBRAIN_DEBUGGER_INACTIVE_LABEL;
+                EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_BRAIN_IS_LABEL + activeStatus, labelStyle, null);
+
+                _previousStateName = _currentStateName == _selectedBrain.CurrentState.StateName
+                    ? _previousStateName
+                    : _currentStateName;
+                _currentStateName = _selectedBrain.CurrentState.StateName;
+                EditorGUILayout.LabelField("Current State" + _selectedBrain.CurrentState.StateName, labelStyle, null);
+                EditorGUILayout.LabelField("" + _selectedBrain.TimeInThisState, labelStyle, null);
+                EditorGUILayout.LabelField("Previous State" + _previousStateName, labelStyle, null);
+
+                EditorGUILayout.EndVertical();
             }
         }
+
+        private string _currentStateName;
+        private string _previousStateName;
     }
 }
