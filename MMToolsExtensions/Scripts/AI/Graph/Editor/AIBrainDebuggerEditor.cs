@@ -12,7 +12,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
     
         private GameObject _selectedGameObject;
-        private AIBrain _selectedBrain;
+        private AIBrainDebuggable _selectedBrain;
+        
+        private AIActionsList _actionList;
+        
+        private string _currentStateName;
+        private string _previousStateName;
 
         [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
         private static void Init()
@@ -30,9 +35,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             if (Selection.activeObject == _selectedGameObject && _selectedBrain != null) return;
             if (Selection.activeGameObject == null) return;
-            
+
+            _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
             _selectedGameObject = Selection.activeGameObject;
-            _selectedBrain = _selectedGameObject.GetComponent<AIBrain>();
+            _selectedBrain = _selectedGameObject.GetComponent<AIBrainDebuggable>();
+            _selectedBrain.onPerformingActions += OnBrainPerformingActions;
         }
 
         private void OnInspectorUpdate()
@@ -74,15 +81,32 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     ? _previousStateName
                     : _currentStateName;
                 _currentStateName = _selectedBrain.CurrentState.StateName;
-                EditorGUILayout.LabelField("Current State" + _selectedBrain.CurrentState.StateName, labelStyle, null);
+                EditorGUILayout.LabelField("Current State: " + _selectedBrain.CurrentState.StateName, labelStyle, null);
                 EditorGUILayout.LabelField("" + _selectedBrain.TimeInThisState, labelStyle, null);
-                EditorGUILayout.LabelField("Previous State" + _previousStateName, labelStyle, null);
+
+                var text = "";
+                foreach (var action in _actionList)
+                {
+                    if (action == null) continue;
+                    text += action.GetType().Name;
+                    text += ", ";
+                }
+
+                EditorGUILayout.LabelField("Performing: " + text, labelStyle, null);
+                
+                EditorGUILayout.LabelField("------------------------------", labelStyle, null);
+                EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
+                EditorGUILayout.LabelField("" + _selectedBrain.TimeInPreviousState, labelStyle, null);
 
                 EditorGUILayout.EndVertical();
             }
         }
+        
+        private void OnBrainPerformingActions(AIActionsList actionList)
+        {
+            _actionList = actionList;
+        }
 
-        private string _currentStateName;
-        private string _previousStateName;
+
     }
 }

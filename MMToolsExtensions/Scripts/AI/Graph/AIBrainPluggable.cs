@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Tools;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     /// <summary>
-    /// A subclass to the regular Corgi Corgi <see cref="MoreMountains.Tools.AIBrain"/> used
+    /// A subclass to the regular Corgi Engine <see cref="MoreMountains.Tools.AIBrain"/> used
     /// for runtime generation.
     /// </summary>
     [AddComponentMenu("Corgi Extensions/AI/AI Brain Pluggable")] 
-    public class AIBrainPluggable : AIBrain
+    public class AIBrainPluggable : AIBrainDebuggable
     {
         /// <summary>
         /// The brain asset.
