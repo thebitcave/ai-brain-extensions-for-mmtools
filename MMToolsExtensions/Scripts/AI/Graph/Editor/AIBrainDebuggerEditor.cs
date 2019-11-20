@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -44,7 +39,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
             _selectedGameObject = Selection.activeGameObject;
             _selectedBrain = _selectedGameObject.GetComponent<AIBrainDebuggable>();
-            _selectedBrain.onPerformingActions += OnBrainPerformingActions;
+            if (_selectedBrain != null)
+                _selectedBrain.onPerformingActions += OnBrainPerformingActions;
         }
 
         private void OnInspectorUpdate()
@@ -129,7 +125,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
 
                 aiBrainTarget = EditorGUILayout.ObjectField("Target", aiBrainTarget, typeof(GameObject), true) as GameObject;
-                if(GUILayout.Button("Set Target") && aiBrainTarget != null && aiBrainTarget.scene.IsValid()) _selectedBrain.Target = aiBrainTarget.transform;
+                EditorGUI.BeginDisabledGroup(aiBrainTarget == null || !aiBrainTarget.scene.IsValid());
+                if(GUILayout.Button("Set Target")) _selectedBrain.Target = aiBrainTarget.transform;
+                EditorGUI.EndDisabledGroup();
+                EditorGUI.BeginDisabledGroup(aiBrainTarget == null);
+                if (GUILayout.Button("Remove Target"))
+                {
+                    _selectedBrain.Target = null;
+                    aiBrainTarget = null;
+                }
+                EditorGUI.EndDisabledGroup();
                 EditorGUILayout.EndVertical();
             }
         }
