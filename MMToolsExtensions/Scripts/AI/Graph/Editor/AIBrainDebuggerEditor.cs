@@ -37,9 +37,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             if (Selection.activeObject == _selectedGameObject && _selectedBrain != null) return;
             if (Selection.activeGameObject == null) return;
 
-            if (_selectedBrain == null) return;
-            _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
-            _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
+            if (_selectedBrain != null)
+                _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
             _selectedGameObject = Selection.activeGameObject;
             _selectedBrain = _selectedGameObject.GetComponent<AIBrainDebuggable>();
             _selectedBrain.onPerformingActions += OnBrainPerformingActions;
@@ -96,20 +95,31 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 }
 
                 EditorGUILayout.LabelField("Performing: " + text, labelStyle, null);
+                EditorGUILayout.LabelField("Target: " + _selectedBrain.Target, labelStyle, null);
                 
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
                 EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
                 EditorGUILayout.LabelField("" + _selectedBrain.TimeInPreviousState, labelStyle, null);
-
-
-                EditorGUILayout.BeginHorizontal();
-                foreach (var aiState in _selectedBrain.States
-                    .Where(aiState => _selectedBrain.CurrentState.StateName != aiState.StateName)
-                    .Where(aiState => GUILayout.Button(aiState.StateName)))
-                {
-                    TransitionToState(aiState.StateName);
-                }
                 
+                EditorGUILayout.BeginHorizontal();
+                foreach (var aiState in _selectedBrain.States)
+                {
+                    GUI.backgroundColor = new Color(.9f, .9f, .9f, 1);
+                    
+                    var style = new GUIStyle(GUI.skin.button);
+                    style.normal.textColor = Color.black;
+                    foreach (var transition in _selectedBrain.CurrentState.Transitions)
+                    {
+                        if (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName)
+                        {
+                            GUI.backgroundColor = new Color(.9f, .3f, .9f, 1);
+                        }
+                    }
+
+                    EditorGUI.BeginDisabledGroup(_selectedBrain.CurrentState.StateName == aiState.StateName);
+                    if(GUILayout.Button(aiState.StateName, style)) TransitionToState(aiState.StateName);
+                    EditorGUI.EndDisabledGroup();
+                }
                 
                 EditorGUILayout.EndHorizontal();
                 
