@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
@@ -98,8 +99,25 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
                 EditorGUILayout.LabelField("" + _selectedBrain.TimeInPreviousState, labelStyle, null);
 
+
+                EditorGUILayout.BeginHorizontal();
+                foreach (var aiState in _selectedBrain.States
+                    .Where(aiState => _selectedBrain.CurrentState.StateName != aiState.StateName)
+                    .Where(aiState => GUILayout.Button(aiState.StateName)))
+                {
+                    TransitionToState(aiState.StateName);
+                }
+                
+                
+                EditorGUILayout.EndHorizontal();
+                
                 EditorGUILayout.EndVertical();
             }
+        }
+
+        private void TransitionToState(string stateName)
+        {
+            _selectedBrain.TransitionToState(stateName);
         }
         
         private void OnBrainPerformingActions(AIActionsList actionList)
