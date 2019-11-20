@@ -33,6 +33,7 @@
 
         public const string AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrain component attached.";
         public const string AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
+        public const string AIBRAIN_DEBUGGER_GAMEOBJECT_DISABLED = "GameObject is disabled: please enable it to start debugging.";
         public const string AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL = "Debugging AIBrain for ";
         public const string AIBRAIN_DEBUGGER_BRAIN_IS_LABEL = "Brain is ";
         public const string AIBRAIN_DEBUGGER_ACTIVE_LABEL = "active";

@@ -68,6 +68,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             {
                 EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING, labelStyle);
             }
+            else if (!_selectedBrain.gameObject.activeInHierarchy)
+            {
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_GAMEOBJECT_DISABLED, labelStyle);
+            }
             else
             {
                 EditorGUILayout.BeginVertical();
@@ -98,13 +102,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
                 EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
-                EditorGUILayout.LabelField("Time in the previous state" + _selectedBrain.TimeInPreviousState, labelStyle, null);
+                EditorGUILayout.LabelField("Time in the previous state: " + _selectedBrain.TimeInPreviousState, labelStyle, null);
                 
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
                 {
-                    GUI.backgroundColor = new Color(.9f, .9f, .9f, 1);
-                    
                     var style = new GUIStyle(GUI.skin.button);
                     style.normal.textColor = Color.black;
                     foreach (var transition in _selectedBrain.CurrentState.Transitions)
@@ -119,7 +121,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     if(GUILayout.Button(aiState.StateName, style)) TransitionToState(aiState.StateName);
                     EditorGUI.EndDisabledGroup();
                 }
-                
+                GUI.backgroundColor = Color.white;
                 EditorGUILayout.EndHorizontal();
                 
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
