@@ -5,6 +5,7 @@ using System.Linq;
 using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -12,6 +13,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     public class AIBrainDebuggerEditor : EditorWindow
     {
     
+        public GameObject aiBrainTarget;
+        
         private GameObject _selectedGameObject;
         private AIBrainDebuggable _selectedBrain;
         
@@ -123,6 +126,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 EditorGUILayout.EndHorizontal();
                 
+                EditorGUILayout.LabelField("------------------------------", labelStyle, null);
+
+                aiBrainTarget = EditorGUILayout.ObjectField("Target", aiBrainTarget, typeof(GameObject), true) as GameObject;
+                if(GUILayout.Button("Set Target") && aiBrainTarget != null && aiBrainTarget.scene.IsValid()) _selectedBrain.Target = aiBrainTarget.transform;
                 EditorGUILayout.EndVertical();
             }
         }
