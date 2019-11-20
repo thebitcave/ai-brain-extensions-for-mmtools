@@ -14,7 +14,7 @@ This library uses [xNode](https://github.com/Siccity/xNode) to create AI Brain g
 
 ## Documentation
 
-For full documentation please visit the dedicated pages:
+For full documentation please visit the dedicated [Wiki](https://github.com/thebitcave/ai-brain-graph-for-mmtools/wiki) and the Corgi/TopDown engine pages:
 
 * [AI Brain Graph for Corgi](https://github.com/thebitcave/ai-brain-graph-for-corgi)
 
