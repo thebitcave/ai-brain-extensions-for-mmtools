@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using System;
+using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
 
@@ -107,13 +108,14 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
                 {
-                    var style = new GUIStyle(GUI.skin.button);
-                    style.normal.textColor = Color.black;
+                    var style = new GUIStyle(GUI.skin.button) {normal = {textColor = Color.black}};
                     foreach (var transition in _selectedBrain.CurrentState.Transitions)
                     {
                         if (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName)
                         {
-                            GUI.backgroundColor = new Color(.9f, .3f, .9f, 1);
+                            GUI.backgroundColor = (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName) ?
+                                new Color(.9f, .3f, .9f, 1):
+                                Color.white;
                         }
                     }
 
@@ -151,6 +153,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _actionList = actionList;
         }
 
-
+        private void OnDisable()
+        {
+            aiBrainTarget = null;
+        }
     }
 }
