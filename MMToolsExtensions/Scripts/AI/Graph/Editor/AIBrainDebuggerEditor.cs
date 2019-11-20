@@ -37,6 +37,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             if (Selection.activeObject == _selectedGameObject && _selectedBrain != null) return;
             if (Selection.activeGameObject == null) return;
 
+            if (_selectedBrain == null) return;
+            _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
             _selectedBrain.onPerformingActions -= OnBrainPerformingActions;
             _selectedGameObject = Selection.activeGameObject;
             _selectedBrain = _selectedGameObject.GetComponent<AIBrainDebuggable>();
