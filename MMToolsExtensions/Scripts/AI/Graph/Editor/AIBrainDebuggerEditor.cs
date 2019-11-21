@@ -9,6 +9,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     public class AIBrainDebuggerEditor : EditorWindow
     {
     
+        /// <summary>
+        /// The gameobject containing the AIBrain that should be debugged.
+        /// </summary>
         public GameObject aiBrainTarget;
         
         private GameObject _selectedGameObject;
@@ -26,10 +29,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             window.Show();
         }
 
-        private void Awake()
-        {
+     //   private void Awake()
+     //   {
             // throw new NotImplementedException();
-        }
+     //   }
 
         private void Update()
         {
@@ -49,18 +52,22 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             Repaint();
         }
 
+        private Vector2 scrollPos;
+        
         private void OnGUI()
         {
             var titleStyle = new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter,
-                fontStyle = FontStyle.Bold
+                fontStyle = FontStyle.Bold,
+                fontSize = 11
             };
             
             var labelStyle = new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter
             };
+            
             if (_selectedBrain == null)
             {
                 EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT, labelStyle);
@@ -76,6 +83,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             else
             {
                 EditorGUILayout.BeginVertical();
+                scrollPos =
+                    EditorGUILayout.BeginScrollView(scrollPos, GUILayout.ExpandWidth(true));
                 EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
 
                 var activeStatus = _selectedBrain.BrainActive
@@ -139,6 +148,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     aiBrainTarget = null;
                 }
                 EditorGUI.EndDisabledGroup();
+                
+                EditorGUILayout.EndScrollView();
                 EditorGUILayout.EndVertical();
             }
         }

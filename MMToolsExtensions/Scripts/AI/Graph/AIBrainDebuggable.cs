@@ -5,13 +5,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     /// <summary>
     /// A subclass to the regular Corgi <see cref="MoreMountains.Tools.AIBrain"/> used
-    /// for debugging porpuses.
+    /// for debugging purposes.
     /// </summary>
     [AddComponentMenu("Corgi Extensions/AI/AI Brain Debuggable")]
     public class AIBrainDebuggable : AIBrain
     {
 
-        public delegate void OnPerformingActions(AIActionsList Actions);
+        public delegate void OnPerformingActions(AIActionsList actions);
         public event OnPerformingActions onPerformingActions;
         
         /// <summary>

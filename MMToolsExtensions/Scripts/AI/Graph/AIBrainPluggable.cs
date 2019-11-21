@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MoreMountains.Tools;
+using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -7,7 +8,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// for runtime generation.
     /// </summary>
     [AddComponentMenu("Corgi Extensions/AI/AI Brain Pluggable")] 
-    public class AIBrainPluggable : AIBrainDebuggable
+    public class AIBrainPluggable : AIBrain
     {
         /// <summary>
         /// The brain asset.

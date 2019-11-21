@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using MoreMountains.Tools;
+using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -27,6 +28,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// The <see cref="MoreMountains.Tools.AIBrain"/> frequency (in seconds) at which to evaluate decisions
         public float decisionFrequency = 0;
 
+        [Header("Debug")]
+        public bool generateDebugBrain;
+
         private GraphToBrainGenerator _generator;
         
         /// <summary>
@@ -44,7 +48,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             // Starts the generation process
             _generator = new GraphToBrainGenerator(aiBrainGraph, gameObject);
-            _generator.Generate(brainActive, actionsFrequency, decisionFrequency);
+            _generator.Generate(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
         }
 
         public void Cleanup()
