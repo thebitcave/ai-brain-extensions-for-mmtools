@@ -6,7 +6,7 @@ using UnityEngine;
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
 
-    public class AIBrainDebuggerEditor : EditorWindow
+    public class AIBrainDebuggerEditorWindow : EditorWindow
     {
     
         /// <summary>
@@ -22,10 +22,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private string _currentStateName;
         private string _previousStateName;
 
+        private Vector2 _scrollPos; // Used by the scroll window
+
         [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
         private static void Init()
         {
-            var window = GetWindow<AIBrainDebuggerEditor>("AI Brain Debugger", true);
+            var window = GetWindow<AIBrainDebuggerEditorWindow>("AI Brain Debugger", true);
             window.Show();
         }
 
@@ -45,6 +47,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _selectedBrain = _selectedGameObject.GetComponent<AIBrainDebuggable>();
             if (_selectedBrain != null)
                 _selectedBrain.onPerformingActions += OnBrainPerformingActions;
+            aiBrainTarget = null;
         }
 
         private void OnInspectorUpdate()
@@ -52,8 +55,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             Repaint();
         }
 
-        private Vector2 scrollPos;
-        
         private void OnGUI()
         {
             var titleStyle = new GUIStyle(GUI.skin.label)
@@ -83,8 +84,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             else
             {
                 EditorGUILayout.BeginVertical();
-                scrollPos =
-                    EditorGUILayout.BeginScrollView(scrollPos, GUILayout.ExpandWidth(true));
+                _scrollPos =
+                    EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.ExpandWidth(true));
                 EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
 
                 var activeStatus = _selectedBrain.BrainActive

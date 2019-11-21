@@ -13,7 +13,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public delegate void OnPerformingActions(AIActionsList actions);
         public event OnPerformingActions onPerformingActions;
-        
+
         /// <summary>
         /// Every frame we update our current state
         /// </summary>
@@ -53,6 +53,5 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         }
         
         public float TimeInPreviousState { get; private set; }
-
     }
 }
