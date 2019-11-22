@@ -57,7 +57,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void GenerateDecisions()
         {
             foreach (var decisionNode in _aiBrainGraph.nodes.OfType<AIDecisionNode>()
-                .Select(node => (node as AIDecisionNode)))
+                .Select(node => node))
             {
                 var aiDecision =  decisionNode.AddDecisionComponent(_gameObject);
                 _decisions.Add(decisionNode, aiDecision);
@@ -70,7 +70,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void GenerateActions()
         {
             foreach (var actionNode in _aiBrainGraph.nodes.OfType<AIActionNode>()
-                .Select(node => (node as AIActionNode)))
+                .Select(node => node))
             {
                 var aiAction =  actionNode.AddActionComponent(_gameObject);
                 _actions.Add(actionNode, aiAction);
@@ -99,11 +99,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void InitBrain(AIBrain brain)
         {
             brain.States = new List<AIState>();
-            List<string> stateNames = new List<string>();
+            var stateNames = new List<string>();
 
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
-                .Select(node => (node as AIBrainStateNode)))
+                .Select(node => node))
             {
                 if (stateNames.IndexOf(brainStateNode.name) >= 0)
                 {
