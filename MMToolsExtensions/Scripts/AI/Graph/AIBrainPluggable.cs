@@ -7,7 +7,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// A subclass to the regular Corgi Engine <see cref="MoreMountains.Tools.AIBrain"/> used
     /// for runtime generation.
     /// </summary>
-    [AddComponentMenu("Corgi Extensions/AI/AI Brain Pluggable")] 
+    [AddComponentMenu("The Bit Cave/AI/AI Brain Pluggable")] 
     public class AIBrainPluggable : AIBrain
     {
         /// <summary>
