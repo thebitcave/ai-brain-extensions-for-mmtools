@@ -9,7 +9,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// <summary>
     /// This component generates a Corgi AI Brain system, starting from an <see cref="TheBitCave.CorgiExensions.AI.Graph.AIBrainGraph"/> asset.
     /// </summary>
-    [AddComponentMenu("Corgi Extensions/AI/AI Brain Generator")] 
+    [AddComponentMenu("The Bit Cave/AI/AI Brain Generator")] 
     public class AIBrainGenerator : MonoBehaviour
     {
         /// <summary>
