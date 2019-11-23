@@ -20,6 +20,4 @@ For full documentation please visit the dedicated [Wiki](https://github.com/theb
 
 ## Releases
 
-### beta 1.0
-
-* Initial release
+See [Release Notes](https://github.com/thebitcave/ai-brain-graph-for-mmtools/blob/master/RELEASE.md)
