@@ -31,12 +31,15 @@
         
         // AI Brain Debugger Settings
 
-        public const string AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrainDebuggable component attached.";
-        public const string AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
-        public const string AIBRAIN_DEBUGGER_GAMEOBJECT_DISABLED = "GameObject is disabled: please enable it to start debugging.";
-        public const string AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL = "Debugging AIBrain for ";
-        public const string AIBRAIN_DEBUGGER_BRAIN_IS_LABEL = "Brain is ";
-        public const string AIBRAIN_DEBUGGER_ACTIVE_LABEL = "active";
-        public const string AIBRAIN_DEBUGGER_INACTIVE_LABEL = "inactive";
+        public const string DEBUG_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrainDebuggable component attached.";
+        public const string DEBUG_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
+        public const string DEBUG_GAMEOBJECT_DISABLED = "GameObject is disabled: please enable it to start debugging.";
+        public const string DEBUG_SELECTED_BRAIN_LABEL = "Debugging AIBrain for ";
+        public const string DEBUG_BRAIN_IS_LABEL = "Brain is ";
+        public const string DEBUG_ACTIVE_LABEL = "active";
+        public const string DEBUG_INACTIVE_LABEL = "inactive";
+        public const string DEBUG_CURRENT_STATE_LABEL = "Current State";
+        public const string DEBUG_PREVIOUS_STATE_LABEL = "Current State";
+        public const string DEBUG_TIME_IN_STATE_LABEL = "Time in State";
     }
 }

@@ -71,34 +71,37 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             
             if (_selectedBrain == null)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_NO_AIBRAIN_COMPONENT, labelStyle);
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_NO_AIBRAIN_COMPONENT, labelStyle);
             }
             else if (!Application.isPlaying)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_APPLICATION_NOT_PLAYING, labelStyle);
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_APPLICATION_NOT_PLAYING, labelStyle);
             }
             else if (!_selectedBrain.gameObject.activeInHierarchy)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.AIBRAIN_DEBUGGER_GAMEOBJECT_DISABLED, labelStyle);
+                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_GAMEOBJECT_DISABLED, labelStyle);
             }
             else
             {
                 EditorGUILayout.BeginVertical();
                 _scrollPos =
                     EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.ExpandWidth(true));
-                EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
+                EditorGUILayout.LabelField(C.DEBUG_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
 
                 var activeStatus = _selectedBrain.BrainActive
-                    ? C.AIBRAIN_DEBUGGER_ACTIVE_LABEL
-                    : C.AIBRAIN_DEBUGGER_INACTIVE_LABEL;
-                EditorGUILayout.LabelField(C.AIBRAIN_DEBUGGER_BRAIN_IS_LABEL + activeStatus, labelStyle, null);
+                    ? C.DEBUG_ACTIVE_LABEL
+                    : C.DEBUG_INACTIVE_LABEL;
+                EditorGUILayout.LabelField(C.DEBUG_BRAIN_IS_LABEL + activeStatus, labelStyle, null);
 
                 _previousStateName = _currentStateName == _selectedBrain.CurrentState.StateName
                     ? _previousStateName
                     : _currentStateName;
                 _currentStateName = _selectedBrain.CurrentState.StateName;
-                EditorGUILayout.LabelField("Current State: " + _selectedBrain.CurrentState.StateName, labelStyle, null);
-                EditorGUILayout.LabelField("Time in this state: " + _selectedBrain.TimeInThisState.ToString("0.##"), labelStyle, null);
+                
+                var label = C.DEBUG_CURRENT_STATE_LABEL + ": " + _currentStateName;
+                EditorGUILayout.LabelField(label, labelStyle, null);
+                label = C.DEBUG_TIME_IN_STATE_LABEL + ": " + _selectedBrain.TimeInThisState.ToString("0.##");
+                EditorGUILayout.LabelField(label , labelStyle, null);
 
                 var text = "";
                 foreach (var action in _actionList)
@@ -112,8 +115,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.LabelField("Target: " + _selectedBrain.Target, labelStyle, null);
                 
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
-                EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
-                EditorGUILayout.LabelField("Time in the previous state: " + _selectedBrain.TimeInPreviousState.ToString("0.##"), labelStyle, null);
+                label = C.DEBUG_PREVIOUS_STATE_LABEL + ": " + _previousStateName;
+                EditorGUILayout.LabelField(label, labelStyle, null);
+                label = C.DEBUG_TIME_IN_STATE_LABEL + ": " + _selectedBrain.TimeInPreviousState.ToString("0.##");
+                EditorGUILayout.LabelField(label, labelStyle, null);
                 
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
