@@ -148,7 +148,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
                 {
-                    var style = new GUIStyle(GUI.skin.button) {normal = {textColor = Color.black}};
                     foreach (var transition in _selectedBrain.CurrentState.Transitions)
                     {
                         if (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName)
@@ -160,7 +159,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     }
 
                     EditorGUI.BeginDisabledGroup(_selectedBrain.CurrentState.StateName == aiState.StateName);
-                    if(GUILayout.Button(aiState.StateName, style)) TransitionToState(aiState.StateName);
+                    if(GUILayout.Button(aiState.StateName)) TransitionToState(aiState.StateName);
                     EditorGUI.EndDisabledGroup();
                 }
                 GUI.backgroundColor = Color.white;
