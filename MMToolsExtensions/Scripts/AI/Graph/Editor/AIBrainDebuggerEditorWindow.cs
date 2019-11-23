@@ -24,9 +24,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         private Vector2 _scrollPos; // Used by the scroll window
 
-        int _stateSelectionGrid = 0;
-        
-        [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
+        [MenuItem("Tools/The Bit Cave/MM Extensions/AI Brain Debugger")]
         private static void Init()
         {
             var window = GetWindow<AIBrainDebuggerEditorWindow>("AI Brain Debugger", true);
