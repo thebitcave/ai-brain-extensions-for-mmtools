@@ -24,6 +24,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         private Vector2 _scrollPos; // Used by the scroll window
 
+        int _stateSelectionGrid = 0;
+        
         [MenuItem("Tools/TheBitCave/MM Extensions/AI Brain Debugger")]
         private static void Init()
         {
@@ -98,7 +100,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     : _currentStateName;
                 _currentStateName = _selectedBrain.CurrentState.StateName;
                 EditorGUILayout.LabelField("Current State: " + _selectedBrain.CurrentState.StateName, labelStyle, null);
-                EditorGUILayout.LabelField("Time in this state: " + _selectedBrain.TimeInThisState, labelStyle, null);
+                EditorGUILayout.LabelField("Time in this state: " + _selectedBrain.TimeInThisState.ToString("0.##"), labelStyle, null);
 
                 var text = "";
                 foreach (var action in _actionList)
@@ -113,7 +115,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 EditorGUILayout.LabelField("------------------------------", labelStyle, null);
                 EditorGUILayout.LabelField("Previous State: " + _previousStateName, labelStyle, null);
-                EditorGUILayout.LabelField("Time in the previous state: " + _selectedBrain.TimeInPreviousState, labelStyle, null);
+                EditorGUILayout.LabelField("Time in the previous state: " + _selectedBrain.TimeInPreviousState.ToString("0.##"), labelStyle, null);
                 
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
