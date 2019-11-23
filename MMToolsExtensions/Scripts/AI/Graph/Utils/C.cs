@@ -39,7 +39,10 @@
         public const string DEBUG_ACTIVE_LABEL = "active";
         public const string DEBUG_INACTIVE_LABEL = "inactive";
         public const string DEBUG_CURRENT_STATE_LABEL = "Current State";
-        public const string DEBUG_PREVIOUS_STATE_LABEL = "Current State";
+        public const string DEBUG_PREVIOUS_STATE_LABEL = "Previous State";
         public const string DEBUG_TIME_IN_STATE_LABEL = "Time in State";
+        public const string DEBUG_TARGET_LABEL = "Target";
+        public const string DEBUG_SET_TARGET_LABEL = "Set Target";
+        public const string DEBUG_REMOVE_TARGET_LABEL = "Remove Target";
     }
 }
