@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using MoreMountains.Tools;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -12,7 +15,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private readonly GameObject _gameObject;
         private Dictionary<AIDecisionNode, AIDecision> _decisions;
         private Dictionary<AIActionNode, AIAction> _actions;
-        
+
         public GraphToBrainGenerator(AIBrainGraph graph, GameObject go)
         {
             _aiBrainGraph = graph;
@@ -23,7 +26,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> system components (Brain, Actions and Decisions)
         /// as defined in the brain graph asset.
         /// </summary>
-        public void Generate(bool brainActive, float actionsFrequency, float decisionFrequency, bool debugBrain = false)
+        public void Generate(bool brainActive, float actionsFrequency, float decisionFrequency)
         {
             // Removes all Corgi Brain, Action and Decision components
             Cleanup(_gameObject);
@@ -34,7 +37,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             // Starts the generation process
             GenerateActions();
             GenerateDecisions();
-            GenerateBrain(brainActive, actionsFrequency, decisionFrequency, debugBrain);
+            GenerateBrain(brainActive, actionsFrequency, decisionFrequency);
         }
 
         public void GeneratePluggable(AIBrain brain)
@@ -57,7 +60,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void GenerateDecisions()
         {
             foreach (var decisionNode in _aiBrainGraph.nodes.OfType<AIDecisionNode>()
-                .Select(node => node))
+                .Select(node => (node)))
             {
                 var aiDecision =  decisionNode.AddDecisionComponent(_gameObject);
                 _decisions.Add(decisionNode, aiDecision);
@@ -70,7 +73,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void GenerateActions()
         {
             foreach (var actionNode in _aiBrainGraph.nodes.OfType<AIActionNode>()
-                .Select(node => node))
+                .Select(node => (node)))
             {
                 var aiAction =  actionNode.AddActionComponent(_gameObject);
                 _actions.Add(actionNode, aiAction);
@@ -81,14 +84,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> component creating all
         /// corresponding logic.
         /// </summary>
-        /// <param name="brainActive">The AIBrain brainActive parameter</param>
-        /// <param name="actionsFrequency">The AIBrain actionsFrequency parameter</param>
-        /// <param name="decisionFrequency">The AIBrain decisionFrequency parameter</param>
-        /// <param name="debugBrain">If set to true an <see cref="TheBitCave.MMToolsExtensions.AI.Graph.AIBrainDebuggable"/> will be generated; otherwise a regular AIBrain will be added.</param>
-        private void GenerateBrain(bool brainActive, float actionsFrequency, float decisionFrequency, bool debugBrain)
+        private void GenerateBrain(bool brainActive, float actionsFrequency, float decisionFrequency)
         {
             // Create the brain
-            var brain = debugBrain ? _gameObject.AddComponent<AIBrainDebuggable>() : _gameObject.AddComponent<AIBrain>();
+            var brain = _gameObject.AddComponent<AIBrain>();
             brain.BrainActive = brainActive;
             brain.ActionsFrequency = actionsFrequency;
             brain.DecisionFrequency = decisionFrequency;
@@ -103,7 +102,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
-                .Select(node => node))
+                .Select(node => (node as AIBrainStateNode)))
             {
                 if (stateNames.IndexOf(brainStateNode.name) >= 0)
                 {
@@ -154,25 +153,78 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// Removes all Corgi Brain, Actions and Decisions from the gameObject.
         /// </summary>
-        /// <param name="go">The GameObject that should be cleaned</param>
-        /// <param name="excludeBrain">If true, an AIBrain won't be added to the gameObject (assuming that there is already one)</param>
         public static void Cleanup(GameObject go, bool excludeBrain = false)
         {
-            foreach (var aiDecision in go.GetComponents<AIDecision>())
+            if (!excludeBrain)
             {
-                Object.DestroyImmediate(aiDecision);
-            }
-            
-            foreach (var aiAction in go.GetComponents<AIAction>())
-            {
-                Object.DestroyImmediate(aiAction);
+                var brain = go.GetComponent<AIBrain>();
+                Object.DestroyImmediate(brain);
             }
 
-            if (excludeBrain) return;
-            
-            var brain = go.GetComponent<AIBrain>();
-            Object.DestroyImmediate(brain);
+            var remainingActions = false;
+            var remainingDecisions = false;
+
+            // Loops twice if there is a required component for the destroying component itself
+            var count = 0;
+            while (count < 2)
+            {
+
+                foreach (var aiDecision in go.GetComponents<AIDecision>())
+                {
+                    if (go.CanDestroyAIDecision(aiDecision.GetType()))
+                    {
+                        Object.DestroyImmediate(aiDecision);
+                    }
+                    else
+                    {
+                        remainingDecisions = true;
+                    }
+                }
+
+                foreach (var aiAction in go.GetComponents<AIAction>())
+                {
+                    if (go.CanDestroyAIAction(aiAction.GetType()))
+                    {
+                        Object.DestroyImmediate(aiAction);
+                    }
+                    else
+                    {
+                        remainingActions = true;
+                    }
+                }
+
+                if (remainingActions || remainingDecisions)
+                {
+                    count++;
+                    continue;
+                }
+                break;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// Inspired by https://gamedev.stackexchange.com/questions/140797/check-if-a-game-objects-component-can-be-destroyed
+    /// </summary>
+    internal static class Extensions
+    {
+        private static bool Requires(MemberInfo obj, Type requirement)
+        {
+            return Attribute.IsDefined(obj, typeof(RequireComponent)) &&
+                   Attribute.GetCustomAttributes(obj, typeof(RequireComponent)).OfType<RequireComponent>()
+                       .Any(requireComponent => requireComponent.m_Type0.IsAssignableFrom(requirement));
+        }
+
+        internal static bool CanDestroyAIAction(this GameObject go, Type t)
+        {
+            return !go.GetComponents<AIAction>().Any(aiAction => Requires(aiAction.GetType(), t));
+        }
+        
+        internal static bool CanDestroyAIDecision(this GameObject go, Type t)
+        {
+            return !go.GetComponents<AIDecision>().Any(aiDecision => Requires(aiDecision.GetType(), t));
         }
 
     }
+
 }
