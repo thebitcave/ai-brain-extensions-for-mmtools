@@ -26,7 +26,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> system components (Brain, Actions and Decisions)
         /// as defined in the brain graph asset.
         /// </summary>
-        public void Generate(bool brainActive, float actionsFrequency, float decisionFrequency)
+        public void Generate(bool brainActive, float actionsFrequency, float decisionFrequency, bool generateDebugBrain = false)
         {
             // Removes all Corgi Brain, Action and Decision components
             Cleanup(_gameObject);
@@ -37,7 +37,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             // Starts the generation process
             GenerateActions();
             GenerateDecisions();
-            GenerateBrain(brainActive, actionsFrequency, decisionFrequency);
+            GenerateBrain(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
         }
 
         public void GeneratePluggable(AIBrain brain)
@@ -84,10 +84,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> component creating all
         /// corresponding logic.
         /// </summary>
-        private void GenerateBrain(bool brainActive, float actionsFrequency, float decisionFrequency)
+        private void GenerateBrain(bool brainActive, float actionsFrequency, float decisionFrequency, bool generateDebugBrain)
         {
             // Create the brain
-            var brain = _gameObject.AddComponent<AIBrain>();
+            var brain = generateDebugBrain ? _gameObject.AddComponent<AIBrainDebuggable>() : _gameObject.AddComponent<AIBrain>();
             brain.BrainActive = brainActive;
             brain.ActionsFrequency = actionsFrequency;
             brain.DecisionFrequency = decisionFrequency;
