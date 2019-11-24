@@ -1,4 +1,4 @@
-# AI Extensions for Corgi
+# Extensions for MMTools
 
 ## Release List
 
