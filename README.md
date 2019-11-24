@@ -1,4 +1,4 @@
-# AI Brain Graph MMTools
+# AI Brain Graph for MMTools
 
 This library uses [xNode](https://github.com/Siccity/xNode) to create AI Brain graphs for MoreMountains engines like [Corgi Engine](https://assetstore.unity.com/packages/templates/systems/corgi-engine-2d-2-5d-platformer-26617?aid=1011lHJn) and [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636?aid=1011lHJn).
 
@@ -10,7 +10,7 @@ This library uses [xNode](https://github.com/Siccity/xNode) to create AI Brain g
   * Actions
   * Decisions
 * _AI Brain Generator_: to create Corgi AIBrain systems (with AIDecisions and AIActions)
-* _AI pluggable brain_: to generate AI systems at runtime
+* _AI Pluggable Brain_: to generate AI systems at runtime
 
 ## Documentation
 
@@ -20,6 +20,4 @@ For full documentation please visit the dedicated [Wiki](https://github.com/theb
 
 ## Releases
 
-### beta 1.0
-
-* Initial release
+See [Release Notes](https://github.com/thebitcave/ai-brain-graph-for-mmtools/blob/master/RELEASE.md)
