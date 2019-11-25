@@ -4,7 +4,7 @@ This project is a set of tools developed to extend MoreMountains game engines li
 
 # AI Brain Graph
 
-The AI Brain graph lets you create AIBrains systems by using a node graph.
+The AI Brain graph lets you create AIBrains systems by using a node system.
 
 ![AI Brain Graph](https://github.com/thebitcave/ai-brain-graph-for-corgi-engine/blob/docs/doc-images/tutorial_006.png)
 
@@ -23,6 +23,8 @@ _Note: this tool uses [xNode](https://github.com/Siccity/xNode) to create AI Bra
 ## 2. AI Brain Debugger (Experimental)
 
 The debugger tool is still experimental and a work in progress, but will let you check some inner workings of an AI Brain.
+
+![AI Brain Debugger](https://github.com/thebitcave/ai-brain-estensions-for-mmtools/blob/docs/doc-images/aibrain_debugger.png)
 
 ### Features
 
