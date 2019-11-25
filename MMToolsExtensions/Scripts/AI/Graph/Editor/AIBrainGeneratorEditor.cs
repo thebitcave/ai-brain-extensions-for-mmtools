@@ -15,6 +15,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         protected SerializedProperty _brainActive;
         protected SerializedProperty _actionsFrequency;
         protected SerializedProperty _decisionFrequency;
+        protected SerializedProperty _generateDebugBrain;
 
         private AIBrainGenerator _generator;
         
@@ -27,7 +28,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _brainActive = serializedObject.FindProperty("brainActive");
             _actionsFrequency = serializedObject.FindProperty("actionsFrequency");
             _decisionFrequency = serializedObject.FindProperty("decisionFrequency");
-
+            _generateDebugBrain = serializedObject.FindProperty("generateDebugBrain");
         }
 
         public override void OnInspectorGUI()
@@ -38,6 +39,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             EditorGUILayout.PropertyField(_brainActive);
             EditorGUILayout.PropertyField(_actionsFrequency);
             EditorGUILayout.PropertyField(_decisionFrequency);
+            EditorGUILayout.PropertyField(_generateDebugBrain);
             serializedObject.ApplyModifiedProperties();
 
             EditorGUILayout.HelpBox(C.WARNING_GENERATE_SCRIPTS, MessageType.Warning);

@@ -18,7 +18,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             var title = target.name;
             if (graph.startingNode == node)
             {
-                title = ">> " + target.name;
+                title = "[>>] " + target.name;
             }
             else
             {
