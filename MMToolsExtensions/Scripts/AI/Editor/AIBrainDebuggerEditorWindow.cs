@@ -66,7 +66,14 @@ namespace TheBitCave.MMToolsExtensions.AI
                 fontStyle = FontStyle.Bold,
                 fontSize = 11
             };
-            
+
+            var titleStyleCenter = new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle.Bold,
+                alignment = TextAnchor.MiddleCenter,
+                fontSize = 11
+            };
+
             var labelStyle = new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter
@@ -112,6 +119,8 @@ namespace TheBitCave.MMToolsExtensions.AI
 
                 #endregion
 
+                #region --- STATE TRACKING --
+
                 _previousStateName = _currentStateName == _selectedBrain.CurrentState.StateName
                     ? _previousStateName
                     : _currentStateName;
@@ -121,7 +130,7 @@ namespace TheBitCave.MMToolsExtensions.AI
                 EditorGUILayout.BeginVertical(GUI.skin.box);
 
                 label = C.DEBUG_PREVIOUS_STATE_LABEL;
-                EditorGUILayout.LabelField(label, titleStyle, null);
+                EditorGUILayout.LabelField(label, titleStyleCenter, null);
                 label = _previousStateName;
                 EditorGUILayout.LabelField(label, labelStyle, null);
                 label = C.DEBUG_TIME_IN_STATE_LABEL + ": " + _selectedBrain.TimeInPreviousState.ToString("0.##");
@@ -131,7 +140,7 @@ namespace TheBitCave.MMToolsExtensions.AI
                 EditorGUILayout.BeginVertical(GUI.skin.box); 
                 
                 label = C.DEBUG_CURRENT_STATE_LABEL;
-                EditorGUILayout.LabelField(label, titleStyle, null);
+                EditorGUILayout.LabelField(label, titleStyleCenter, null);
                 label = _currentStateName;
                 EditorGUILayout.LabelField(label, labelStyle, null);
                 label = C.DEBUG_TIME_IN_STATE_LABEL + ": " + _selectedBrain.TimeInThisState.ToString("0.##");
@@ -139,6 +148,9 @@ namespace TheBitCave.MMToolsExtensions.AI
                 
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
+
+                #endregion
+
 
                 #region --- ACTIONS ---
 
@@ -156,36 +168,28 @@ namespace TheBitCave.MMToolsExtensions.AI
                 label = C.DEBUG_STATE_TRANSITIONS_LABEL;
                 EditorGUILayout.LabelField(label, titleStyle);
 
-       //         EditorGUILayout.BeginHorizontal();
-                var count = 0;
                 foreach (var aiState in _selectedBrain.States)
                 {
-                    foreach (var transition in _selectedBrain.CurrentState.Transitions)
-                    {
-                        if (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName)
-                        {
-                            GUI.backgroundColor = (transition.FalseState == aiState.StateName || transition.TrueState == aiState.StateName) ?
-                                new Color(0f, .5f, 1f, 1):
-                                Color.white;
-                        }
-                    }
-
+                    var buttonLabel = aiState.StateName;
+                    GUI.backgroundColor = Color.white;
                     if (_selectedBrain.CurrentState.StateName == aiState.StateName)
                     {
-                        GUI.backgroundColor = Color.red;
+                        GUI.backgroundColor = new Color(0f, .8f, 1f, 1);
+                        buttonLabel = "[C] " + aiState.StateName;
+                    }
+                    foreach (var transition in _selectedBrain.CurrentState.Transitions)
+                    {
+                        if (transition.FalseState != aiState.StateName && transition.TrueState != aiState.StateName)
+                            continue;
+                        GUI.backgroundColor = new Color(0f, .7f, 1f, 1);
+                        buttonLabel = "[>>] " + aiState.StateName;
                     }
 
                     EditorGUI.BeginDisabledGroup(_selectedBrain.CurrentState.StateName == aiState.StateName);
-                    var buttonLabel = _selectedBrain.CurrentState.StateName == aiState.StateName
-                        ? "[C]" + aiState.StateName
-                        : aiState.StateName;
                     if(GUILayout.Button(buttonLabel)) TransitionToState(aiState.StateName);
                     EditorGUI.EndDisabledGroup();
-
-                    count++;
                 }
                 GUI.backgroundColor = Color.white;
-       //         EditorGUILayout.EndHorizontal();
                 
                 #endregion
 
