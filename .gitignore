@@ -105,8 +105,8 @@ Assets/Plugins/Editor/JetBrains*
 
 Assets/_Dev/
 Assets/_Dev.meta
-Assets/doc-images/
-Assets/doc-images.meta
+doc-images/
+doc-images.meta
 
 Assets/_Test/
 Assets/_Test.meta
