@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Tools;
 using UnityEditor;
 using UnityEngine;
@@ -24,7 +26,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         private Vector2 _scrollPos; // Used by the scroll window
 
-        [MenuItem("Tools/The Bit Cave/MM Extensions/AI Brain Debugger")]
+        [MenuItem("Tools/The Bit Cave/MM Extensions/Experimental/AI Brain Debugger")]
         private static void Init()
         {
             var window = GetWindow<AIBrainDebuggerEditorWindow>("AI Brain Debugger", true);
@@ -57,7 +59,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         private void OnGUI()
         {
-            #region styles
+            #region --- STYLES ---
             
             var titleStyle = new GUIStyle(GUI.skin.label)
             {
@@ -95,12 +97,21 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.BeginVertical();
                 
                 _scrollPos = EditorGUILayout.BeginScrollView(_scrollPos, GUILayout.ExpandWidth(true));
+
+                #region --- HEADER ---
+
                 EditorGUILayout.LabelField(C.DEBUG_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
 
-                var label = _selectedBrain.BrainActive
+                var label = C.DEBUG_BRAIN_IS_LABEL;
+                label += _selectedBrain.BrainActive
                     ? C.DEBUG_ACTIVE_LABEL
                     : C.DEBUG_INACTIVE_LABEL;
-                EditorGUILayout.LabelField(C.DEBUG_BRAIN_IS_LABEL + label, labelStyle, null);
+
+                label += " | ";
+                label += _selectedBrain.Target == null ? C.DEBUG_TARGET_NULL_LABEL : C.DEBUG_TARGET_LABEL + ": " + _selectedBrain.Target.name;
+                EditorGUILayout.LabelField(label, labelStyle, null);
+
+                #endregion
 
                 _previousStateName = _currentStateName == _selectedBrain.CurrentState.StateName
                     ? _previousStateName
@@ -130,18 +141,15 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
 
-                label = "";
-                foreach (var action in _actionList)
-                {
-                    if (action == null) continue;
-                    label += action.GetType().Name;
-                    label += ", ";
-                }
+                #region --- ACTIONS ---
 
-                EditorGUILayout.LabelField("Performing: " + label, labelStyle, null);
-                EditorGUILayout.LabelField("Target: " + _selectedBrain.Target, labelStyle, null);
+                var ar = (from action in _actionList where action != null select action.GetType().Name).ToArray();
+                label = C.DEBUG_PERFORMING_LABEL + string.Join(", ", ar);
+
+                EditorGUILayout.LabelField(label, labelStyle, null);
                 
-                                
+                #endregion
+                
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
                 
@@ -167,12 +175,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-                #region target
+                #region --- TARGET ---
                 
                 EditorGUILayout.BeginHorizontal();
                 aiBrainTarget = EditorGUILayout.ObjectField(C.DEBUG_TARGET_LABEL, aiBrainTarget, typeof(GameObject), true) as GameObject;
                 EditorGUI.BeginDisabledGroup(aiBrainTarget == null || !aiBrainTarget.scene.IsValid());
-                if(GUILayout.Button(C.DEBUG_SET_TARGET_LABEL, targetButtonStyle)) _selectedBrain.Target = aiBrainTarget.transform;
+                if(GUILayout.Button(C.DEBUG_SET_TARGET_LABEL, targetButtonStyle) && aiBrainTarget != null) _selectedBrain.Target = aiBrainTarget.transform;
                 EditorGUI.EndDisabledGroup();
                 EditorGUI.BeginDisabledGroup(aiBrainTarget == null);
                 if (GUILayout.Button(C.DEBUG_REMOVE_TARGET_LABEL, targetButtonStyle))
