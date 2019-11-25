@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI
 {
-
     public class AIBrainDebuggerEditorWindow : EditorWindow
     {
     
@@ -31,11 +30,6 @@ namespace TheBitCave.MMToolsExtensions.AI
             var window = GetWindow<AIBrainDebuggerEditorWindow>("AI Brain Debugger", true);
             window.Show();
         }
-
-     //   private void Awake()
-     //   {
-            // throw new NotImplementedException();
-     //   }
 
         private void Update()
         {
@@ -162,7 +156,8 @@ namespace TheBitCave.MMToolsExtensions.AI
                 label = C.DEBUG_STATE_TRANSITIONS_LABEL;
                 EditorGUILayout.LabelField(label, titleStyle);
 
-                EditorGUILayout.BeginHorizontal();
+       //         EditorGUILayout.BeginHorizontal();
+                var count = 0;
                 foreach (var aiState in _selectedBrain.States)
                 {
                     foreach (var transition in _selectedBrain.CurrentState.Transitions)
@@ -186,9 +181,11 @@ namespace TheBitCave.MMToolsExtensions.AI
                         : aiState.StateName;
                     if(GUILayout.Button(buttonLabel)) TransitionToState(aiState.StateName);
                     EditorGUI.EndDisabledGroup();
+
+                    count++;
                 }
                 GUI.backgroundColor = Color.white;
-                EditorGUILayout.EndHorizontal();
+       //         EditorGUILayout.EndHorizontal();
                 
                 #endregion
 
