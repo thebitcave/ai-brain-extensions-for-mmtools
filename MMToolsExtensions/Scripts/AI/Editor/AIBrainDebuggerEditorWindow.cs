@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using MoreMountains.Tools;
+using TheBitCave.MMToolsExtensions.AI.Graph;
 using UnityEditor;
 using UnityEngine;
 
-namespace TheBitCave.MMToolsExtensions.AI.Graph
+namespace TheBitCave.MMToolsExtensions.AI
 {
 
     public class AIBrainDebuggerEditorWindow : EditorWindow
@@ -60,10 +59,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private void OnGUI()
         {
             #region --- STYLES ---
-            
-            var titleStyle = new GUIStyle(GUI.skin.label)
+
+            var mainTitleStyle = new GUIStyle(GUI.skin.label)
             {
                 alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Bold,
+                fontSize = 12
+            };
+
+            var titleStyle = new GUIStyle(GUI.skin.label)
+            {
                 fontStyle = FontStyle.Bold,
                 fontSize = 11
             };
@@ -100,7 +105,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
                 #region --- HEADER ---
 
-                EditorGUILayout.LabelField(C.DEBUG_SELECTED_BRAIN_LABEL + _selectedGameObject.name, titleStyle, null);
+                EditorGUILayout.LabelField(C.DEBUG_SELECTED_BRAIN_LABEL + _selectedGameObject.name, mainTitleStyle, null);
 
                 var label = C.DEBUG_BRAIN_IS_LABEL;
                 label += _selectedBrain.BrainActive
@@ -144,15 +149,19 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 #region --- ACTIONS ---
 
                 var ar = (from action in _actionList where action != null select action.GetType().Name).ToArray();
-                label = C.DEBUG_PERFORMING_LABEL + string.Join(", ", ar);
+                label = C.DEBUG_PERFORMING_LABEL + ": " + string.Join(", ", ar);
 
                 EditorGUILayout.LabelField(label, labelStyle, null);
                 
                 #endregion
-                
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-                
+                EditorGUILayout.Space();
+
+                #region --- STATE TRANSITIONS ---
+
+                label = C.DEBUG_STATE_TRANSITIONS_LABEL;
+                EditorGUILayout.LabelField(label, titleStyle);
+
                 EditorGUILayout.BeginHorizontal();
                 foreach (var aiState in _selectedBrain.States)
                 {
@@ -166,24 +175,37 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         }
                     }
 
+                    if (_selectedBrain.CurrentState.StateName == aiState.StateName)
+                    {
+                        GUI.backgroundColor = Color.red;
+                    }
+
                     EditorGUI.BeginDisabledGroup(_selectedBrain.CurrentState.StateName == aiState.StateName);
-                    if(GUILayout.Button(aiState.StateName)) TransitionToState(aiState.StateName);
+                    var buttonLabel = _selectedBrain.CurrentState.StateName == aiState.StateName
+                        ? "[C]" + aiState.StateName
+                        : aiState.StateName;
+                    if(GUILayout.Button(buttonLabel)) TransitionToState(aiState.StateName);
                     EditorGUI.EndDisabledGroup();
                 }
                 GUI.backgroundColor = Color.white;
                 EditorGUILayout.EndHorizontal();
                 
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+                #endregion
+
+                EditorGUILayout.Space();
 
                 #region --- TARGET ---
                 
+                label = C.DEBUG_SET_TARGET_LABEL;
+                EditorGUILayout.LabelField(label, titleStyle);
+
                 EditorGUILayout.BeginHorizontal();
                 aiBrainTarget = EditorGUILayout.ObjectField(C.DEBUG_TARGET_LABEL, aiBrainTarget, typeof(GameObject), true) as GameObject;
                 EditorGUI.BeginDisabledGroup(aiBrainTarget == null || !aiBrainTarget.scene.IsValid());
-                if(GUILayout.Button(C.DEBUG_SET_TARGET_LABEL, targetButtonStyle) && aiBrainTarget != null) _selectedBrain.Target = aiBrainTarget.transform;
+                if(GUILayout.Button(C.DEBUG_SET_LABEL, targetButtonStyle) && aiBrainTarget != null) _selectedBrain.Target = aiBrainTarget.transform;
                 EditorGUI.EndDisabledGroup();
                 EditorGUI.BeginDisabledGroup(aiBrainTarget == null);
-                if (GUILayout.Button(C.DEBUG_REMOVE_TARGET_LABEL, targetButtonStyle))
+                if (GUILayout.Button(C.DEBUG_REMOVE_LABEL, targetButtonStyle))
                 {
                     _selectedBrain.Target = null;
                     aiBrainTarget = null;

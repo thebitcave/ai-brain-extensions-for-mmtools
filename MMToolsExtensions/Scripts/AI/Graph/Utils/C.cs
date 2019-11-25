@@ -43,8 +43,11 @@
         public const string DEBUG_TIME_IN_STATE_LABEL = "Time in State";
         public const string DEBUG_TARGET_LABEL = "Target";
         public const string DEBUG_TARGET_NULL_LABEL = "Target is null";
+        public const string DEBUG_SET_LABEL = "Set";
+        public const string DEBUG_REMOVE_LABEL = "Remove";
+        public const string DEBUG_PERFORMING_LABEL = "Preforming";
+        public const string DEBUG_STATES_LABEL = "States";
+        public const string DEBUG_STATE_TRANSITIONS_LABEL = "State Transitions";
         public const string DEBUG_SET_TARGET_LABEL = "Set Target";
-        public const string DEBUG_REMOVE_TARGET_LABEL = "Remove Target";
-        public const string DEBUG_PERFORMING_LABEL = "Remove Target";
     }
 }

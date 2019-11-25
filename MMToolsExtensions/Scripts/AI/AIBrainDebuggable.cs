@@ -1,7 +1,7 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace TheBitCave.MMToolsExtensions.AI.Graph
+namespace TheBitCave.MMToolsExtensions.AI
 {
     /// <summary>
     /// A subclass to the regular Corgi <see cref="MoreMountains.Tools.AIBrain"/> used
