@@ -4,6 +4,8 @@
 
 ### beta 1.3
 
+* _Added_: _AIBrain Debugger_ window
+* _Added_: _AIBrainDebuggable_ component
 * _Fixed_: [Bug #1](https://github.com/thebitcave/ai-brain-graph-for-mmtools/issues/1)
 
 ### beta 1.2
