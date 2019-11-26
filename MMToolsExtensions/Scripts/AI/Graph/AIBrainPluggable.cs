@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
@@ -13,8 +14,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// The brain asset.
         /// </summary>
-        [Header("Pluggable Brain")]
-        public AIBrainGraph[] aiBrainGraphs;
+        public List<AIBrainGraph> aiBrainGraphs;
 
         /// <summary>
         /// On awake we set our brain for all states
@@ -22,14 +22,14 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         protected override void Awake()
         {
             // The brain graph is mandatory
-            if (aiBrainGraphs.Length == 0)
+            if (aiBrainGraphs.Count == 0)
             {
                 Debug.LogError(C.ERROR_NO_AI_BRAIN);
                 return;
             }
 
             // Starts the generation process
-            AIBrainGraph graph = aiBrainGraphs[Random.Range(0, aiBrainGraphs.Length)];
+            var graph = aiBrainGraphs[Random.Range(0, aiBrainGraphs.Count)];
             var generator = new GraphToBrainGenerator(graph, gameObject);
             generator.GeneratePluggable(this);
 
