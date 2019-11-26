@@ -27,9 +27,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             base.OnInspectorGUI();
             
-//            serializedObject.Update();
+            serializedObject.Update();
             _brainList.DoLayoutList();
- //           serializedObject.ApplyModifiedProperties();
+            serializedObject.ApplyModifiedProperties();
         }
 
     }
