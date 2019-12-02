@@ -88,15 +88,18 @@ namespace TheBitCave.MMToolsExtensions.AI
             
             if (_selectedBrain == null)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_NO_AIBRAIN_COMPONENT, labelStyle);
+                EditorGUILayout.Space();
+                EditorGUILayout.HelpBox(C.DEBUG_NO_AIBRAIN_COMPONENT, MessageType.Info);
             }
             else if (!Application.isPlaying)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_APPLICATION_NOT_PLAYING, labelStyle);
+                EditorGUILayout.Space();
+                EditorGUILayout.HelpBox(C.DEBUG_APPLICATION_NOT_PLAYING, MessageType.Warning);
             }
             else if (!_selectedBrain.gameObject.activeInHierarchy)
             {
-                EditorGUI.LabelField(new Rect(0, 0, position.width, position.height), C.DEBUG_GAMEOBJECT_DISABLED, labelStyle);
+                EditorGUILayout.Space();
+                EditorGUILayout.HelpBox(C.DEBUG_GAMEOBJECT_DISABLED, MessageType.Warning);
             }
             else
             {
@@ -106,6 +109,7 @@ namespace TheBitCave.MMToolsExtensions.AI
 
                 #region --- HEADER ---
 
+                EditorGUILayout.Space();
                 EditorGUILayout.LabelField(C.DEBUG_SELECTED_BRAIN_LABEL + _selectedGameObject.name, mainTitleStyle, null);
 
                 var label = C.DEBUG_BRAIN_IS_LABEL;
