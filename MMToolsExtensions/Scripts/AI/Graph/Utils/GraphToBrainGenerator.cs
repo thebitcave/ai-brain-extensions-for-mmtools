@@ -116,8 +116,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     Transitions = new AITransitionsList(),
                     Actions = new AIActionsList()
                 };
-                var graph = brainStateNode.graph as AIBrainGraph;
-                if (graph != null && graph.startingNode == brainStateNode)
+                if (brainStateNode.graph is IBrainGraph graph && graph.StartingNode == brainStateNode)
                 {
                     brain.States.Insert(0, aiState);                    
                 }

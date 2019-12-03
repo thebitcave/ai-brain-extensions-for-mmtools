@@ -8,11 +8,18 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 	/// A Graph to create AI Brains for the Corgi <see cref="MoreMountains.Tools.AIBrain"/>.
 	/// </summary>
 	[Serializable, CreateAssetMenu(fileName = "New Brain Graph", menuName = "The Bit Cave/AI Brain Graph")]
-	public class AIBrainGraph : NodeGraph
+	public class AIBrainGraph : NodeGraph, IBrainGraph
 	{
 		/// <summary>
 		/// Which state should be initialized as the starting one.
 		/// </summary>
-		public AIBrainStateNode startingNode;
+		/// <summary>
+		/// Which state should be initialized as the starting one.
+		/// </summary>
+		public AIBrainStateNode StartingNode
+		{
+			get;
+			set;
+		}
 	}	
 }

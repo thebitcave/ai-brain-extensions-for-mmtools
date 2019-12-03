@@ -12,11 +12,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             var node = target as AIBrainStateNode;
             if (node == null) return;
             
-            var graph = node.graph as AIBrainGraph;
+            var graph = node.graph as IBrainGraph;
             if (graph == null) return;
             
             var title = target.name;
-            if (graph.startingNode == node)
+            if (graph.StartingNode == node)
             {
                 title = "[>>] " + target.name;
             }
@@ -34,12 +34,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             
             var node = target as AIBrainStateNode;
             if (node == null) return;
-//            if (AIBrainStateNode.StartingNode == null) AIBrainStateNode.StartingNode = node;
 
-            var graph = node.graph as AIBrainGraph;
-            if (graph == null) return;
+            if (!(node.graph is IBrainGraph graph)) return;
             
-            if (graph.startingNode != node && GUILayout.Button(C.LABEL_SET_AS_STARTING_STATE)) graph.startingNode = node;
+            if (graph.StartingNode != node && GUILayout.Button(C.LABEL_SET_AS_STARTING_STATE)) graph.StartingNode = node;
         }
 
     }
