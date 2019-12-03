@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
 using Object = UnityEngine.Object;
@@ -10,7 +11,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         public override string GetNodeMenuName(Type type)
         {
-            if (type == typeof(AIStateInNode)) return null;
+            if (type == typeof(AISubgraphStateInNode)) return null;
             return type.IsSubclassOf(typeof(AINode)) ? base.GetNodeMenuName(type) : null;
         }
 

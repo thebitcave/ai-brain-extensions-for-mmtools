@@ -8,7 +8,9 @@
         // Graph labels
         public const string AI_BRAIN_GRAPH_LABEL           = "AI Brain Graph";
         public const string AI_BRAIN_SUBGRAPH_LABEL        = "AI Brain SubGraph";
-
+        public const string SUBGRAPH_STATE_IN              = "State In";
+        public const string SUBGRAPH_TRANSITION_OUT        = "Transition Out";
+                 
         // Port names
         public const string PORT_OUTPUT                    = "output";
         public const string PORT_INPUT                     = "input";

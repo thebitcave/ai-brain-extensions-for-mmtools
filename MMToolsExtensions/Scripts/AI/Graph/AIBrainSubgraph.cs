@@ -21,10 +21,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             set;
         }
 
-        public IEnumerable<AIStateInNode> GetStatesIn()
+        public IEnumerable<AISubgraphStateInNode> GetStatesIn()
         {
-            return nodes.OfType<AIStateInNode>()
-                .Select(node => (node as AIStateInNode))
+            return nodes.OfType<AISubgraphStateInNode>()
+                .Select(node => (node as AISubgraphStateInNode))
                 .ToList();
         }
     }
