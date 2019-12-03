@@ -17,5 +17,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             // Does nothing, but suppresses superclass warnings
         }
+        
+        public override void OnOpen()
+        {
+            window.titleContent.text = target.name;
+        }
+
     }
 }
