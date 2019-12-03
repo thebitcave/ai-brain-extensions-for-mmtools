@@ -22,6 +22,8 @@
         public const string PORT_TRANSITION                = "transition";
         public const string PORT_TRANSITIONS               = "transitions";
         public const string PORT_DECISION                  = "decision";
+        public const string PORT_IN                        = "In";
+        public const string PORT_OUT                       = "Out";
         
         // Error Messages
         public const string ERROR_NO_AI_BRAIN = "No AI Brain has been set in Brain Generator.";

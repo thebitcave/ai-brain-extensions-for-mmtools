@@ -17,24 +17,36 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [NodeWidth(200)]
     public class AIBrainSubgraphNode : AINode
     {
-        /// <summary>
-        /// Transitions to exit this state
-        /// </summary>
-        [Output(connectionType = ConnectionType.Multiple)] public TransitionConnection transitions;
-        
-        [Header("Subgraph Assets")]
+      
         public AIBrainSubgraph subgraph;
 
+        /// <summary>
+        /// State interface list
+        /// </summary>
         public List<NodePort> inputStates = new List<NodePort>();
+
+        /// <summary>
+        /// Transition interface list
+        /// </summary>
+        public List<NodePort> outputStates = new List<NodePort>();
 
         protected override void Init()
         {
             base.Init();
-            inputStates = new List<NodePort>();
             if (subgraph == null) return;
-            foreach (var t in subgraph.GetStatesIn())
+            
+            inputStates = new List<NodePort>();
+            foreach (var inNode in subgraph.GetStatesIn())
             {
-                inputStates.Add(this.AddDynamicInput(typeof(StateConnection), ConnectionType.Override, TypeConstraint.Strict, "thePort" + UnityEngine.Random.Range(0, 1.5f)));
+                var nodeName = inNode.GetPort("input").Connection.node.name;
+                inputStates.Add(AddDynamicInput(typeof(StateConnection), ConnectionType.Multiple, TypeConstraint.Strict, C.PORT_IN + ": " + nodeName));
+            }
+
+            outputStates = new List<NodePort>();
+            foreach (var outNode in subgraph.GetTransitionsOut())
+            {
+                var nodeName = outNode.GetPort("output").Connection.node.name;
+                outputStates.Add(AddDynamicOutput(typeof(TransitionConnection), ConnectionType.Override, TypeConstraint.Strict, C.PORT_OUT + ": " + nodeName));
             }
         }
     }

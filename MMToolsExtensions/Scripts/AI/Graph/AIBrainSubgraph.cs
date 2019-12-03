@@ -24,8 +24,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public IEnumerable<AISubgraphStateInNode> GetStatesIn()
         {
             return nodes.OfType<AISubgraphStateInNode>()
-                .Select(node => (node as AISubgraphStateInNode))
+                .Select(node => node)
                 .ToList();
         }
+        
+        public IEnumerable<AISubgraphTransitionOutNode> GetTransitionsOut()
+        {
+            return nodes.OfType<AISubgraphTransitionOutNode>()
+                .Select(node => node)
+                .ToList();
+        }
+
     }
 }
