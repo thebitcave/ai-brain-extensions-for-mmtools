@@ -10,7 +10,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// </summary>
     [NodeTint("#E95957")]
     [CreateNodeMenu("AI/Brain SubGraph")]
-    [NodeWidth(180)]
+    [NodeWidth(200)]
     public class AIBrainSubgraphNode : AINode
     {
         /// <summary>
@@ -22,5 +22,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// Transitions to exit this state
         /// </summary>
         [Output(connectionType = ConnectionType.Multiple)] public TransitionConnection transitions;
+        
+        public AIBrainSubgraph subgraph;
+
     }
 }
