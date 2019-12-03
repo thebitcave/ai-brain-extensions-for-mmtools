@@ -102,7 +102,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
-                .Select(node => (node as AIBrainStateNode)))
+                .Select(node => node))
             {
                 if (stateNames.IndexOf(brainStateNode.name) >= 0)
                 {
@@ -223,7 +223,5 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             return !go.GetComponents<AIDecision>().Any(aiDecision => Requires(aiDecision.GetType(), t));
         }
-
     }
-
 }
