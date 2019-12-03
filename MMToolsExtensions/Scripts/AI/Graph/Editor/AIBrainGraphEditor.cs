@@ -10,6 +10,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         public override string GetNodeMenuName(Type type)
         {
+            if (type == typeof(AIStateInNode)) return null;
             return type.IsSubclassOf(typeof(AINode)) ? base.GetNodeMenuName(type) : null;
         }
 

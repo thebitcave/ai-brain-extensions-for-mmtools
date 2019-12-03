@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using XNode;
 
@@ -17,6 +19,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             get;
             set;
+        }
+
+        public IEnumerable<AIStateInNode> GetStatesIn()
+        {
+            return nodes.OfType<AIStateInNode>()
+                .Select(node => (node as AIStateInNode))
+                .ToList();
         }
     }
 }
