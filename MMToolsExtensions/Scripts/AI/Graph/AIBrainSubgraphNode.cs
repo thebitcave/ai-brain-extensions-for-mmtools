@@ -36,6 +36,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             if (subgraph == null) return;
             
             inputStates = new List<NodePort>();
+            ClearDynamicPorts();
             foreach (var inNode in subgraph.GetStatesIn())
             {
                 var nodeName = inNode.GetPort("input").Connection.node.name;
