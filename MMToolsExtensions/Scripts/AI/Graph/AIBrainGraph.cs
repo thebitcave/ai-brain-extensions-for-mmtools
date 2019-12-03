@@ -14,6 +14,5 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 		/// Which state should be initialized as the starting one.
 		/// </summary>
 		public AIBrainStateNode startingNode;
-
 	}	
 }
