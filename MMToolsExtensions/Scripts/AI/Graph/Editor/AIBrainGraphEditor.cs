@@ -1,5 +1,7 @@
 ﻿using System;
 using System.CodeDom;
+using System.Dynamic;
+using System.Linq;
 using Packages.Rider.Editor.Util;
 using UnityEditor;
 using UnityEngine;
@@ -21,11 +23,29 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public override void OnDropObjects(Object[] objects)
         {
             // Does nothing, but suppresses superclass warnings
+            if (objects.OfType<AIBrainSubgraph>().Any())
+            {
+                EditorApplication.delayCall += RefreshCanvas;
+            }
         }
 
+        protected virtual void RefreshCanvas()
+        {
+            var graph = target as AIBrainGraph;
+            if (graph == null) return;
+            foreach (var node in graph.nodes)
+            {
+                if (node is AIBrainSubgraphNode subgraphNode)
+                {
+                    subgraphNode.GenerateDynamicPorts();
+                }
+            }
+        }
+        
         public override void OnOpen()
         {
             window.titleContent.text = target.name;
+            RefreshCanvas();
         }
 
     }
