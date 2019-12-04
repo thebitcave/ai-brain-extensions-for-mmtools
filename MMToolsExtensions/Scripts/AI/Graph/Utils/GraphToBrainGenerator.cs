@@ -230,6 +230,27 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         aiState.Actions.Add(actionComponent);
                     }
                 }
+                
+                
+                foreach (var transitionsPort in subgraphNode.DynamicOutputs)
+                {
+                    var stateName = subgraphNode.name + ">" + transitionsPort.fieldName.Split('-')[0];
+                    foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                    {
+                        _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var transition = new AITransition
+                        {
+                            Decision = decisionComponent,
+                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : transitionNode.GetTrueStateLabel(),
+                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : transitionNode.GetFalseStateLabel()
+                        };
+                        foreach (var state in brain.States.Where(state => state.StateName == stateName))
+                        {
+                            state.Transitions.Add(transition);
+                        }
+                    }
+                }
+
             }
 
             #endregion
