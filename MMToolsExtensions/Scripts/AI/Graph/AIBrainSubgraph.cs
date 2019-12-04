@@ -12,13 +12,15 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [Serializable, CreateAssetMenu(fileName = "New Brain SubGraph", menuName = "The Bit Cave/AI Brain SubGraph")]
     public class AIBrainSubgraph : NodeGraph, IBrainGraph
     {
+        public AIBrainStateNode startingNode;
+        
         /// <summary>
         /// Which state should be initialized as the starting one.
         /// </summary>
         public AIBrainStateNode StartingNode
         {
-            get;
-            set;
+            get => startingNode;
+            set => startingNode = value;
         }
 
         public IEnumerable<AISubgraphStateInNode> GetStatesIn()

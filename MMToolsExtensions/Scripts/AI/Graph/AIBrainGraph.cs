@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using XNode;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
@@ -10,6 +11,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 	[Serializable, CreateAssetMenu(fileName = "New Brain Graph", menuName = "The Bit Cave/AI Brain Graph")]
 	public class AIBrainGraph : NodeGraph, IBrainGraph
 	{
+		public AIBrainStateNode startingNode;
+
 		/// <summary>
 		/// Which state should be initialized as the starting one.
 		/// </summary>
@@ -18,8 +21,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 		/// </summary>
 		public AIBrainStateNode StartingNode
 		{
-			get;
-			set;
+			get => startingNode;
+			set => startingNode = value;
 		}
 	}	
 }
