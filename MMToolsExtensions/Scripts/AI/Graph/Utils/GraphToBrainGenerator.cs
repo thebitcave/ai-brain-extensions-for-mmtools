@@ -42,6 +42,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             GenerateBrain(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
         }
 
+        /// <summary>
+        /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> system components (Brain, Actions and Decisions)
+        /// as defined in the brain graph asset. This method is used at runtime.
+        /// </summary>
+        /// <param name="brain"></param>
         public void GeneratePluggable(AIBrain brain)
         {
             // Removes all Corgi Brain, Action and Decision components
@@ -57,6 +62,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             InitBrain(brain);
         }
 
+        /// <summary>
+        /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> system components from a subgraph.
+        /// </summary>
+        /// <param name="graph"></param>
         private void GenerateSubGraphs(NodeGraph graph)
         {
             foreach (var subgraphNode in graph.nodes.OfType<AIBrainSubgraphNode>()
@@ -108,10 +117,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             InitBrain(brain);
         }
         
+        /// <summary>
+        /// Initializes the <see cref="MoreMountains.Tools.AIBrain"/> system wit all required connections.
+        /// </summary>
+        /// <param name="brain"></param>
         private void InitBrain(AIBrain brain)
         {
             brain.States = new List<AIState>();
             var stateNames = new List<string>();
+
+            #region --- MAIN GRAPH ---
 
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
@@ -159,7 +174,65 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     _actions.TryGetValue(actionNode, out var actionComponent);
                     aiState.Actions.Add(actionComponent);
                 }
+                
             }
+            #endregion
+
+            #region --- SUBGRAPH ---
+
+            foreach (var subgraphNode in _aiBrainGraph.nodes.OfType<AIBrainSubgraphNode>()
+                .Select(node => node))
+            {
+                foreach (var brainStateNode in subgraphNode.subgraph.nodes.OfType<AIBrainStateNode>()
+                    .Select(node => node))
+                {
+                    var subName = subgraphNode.name + ">" + brainStateNode.name;
+                    if (stateNames.IndexOf(subName) >= 0)
+                    {
+                        Debug.LogError(C.ERROR_DUPLICATE_STATE_NAMES);
+                        return;
+                    }
+                    stateNames.Add(subName);
+                    var aiState = new AIState
+                    {
+                        StateName = subName,
+                        Transitions = new AITransitionsList(),
+                        Actions = new AIActionsList()
+                    };
+                    if (brainStateNode.graph is IBrainGraph graph && graph.StartingNode == brainStateNode)
+                    {
+                        brain.States.Insert(0, aiState);                    
+                    }
+                    else
+                    {
+                        brain.States.Add(aiState);
+                    }
+
+                    // Sets all decisions logic
+                    var transitionsPort = brainStateNode.GetOutputPort(C.PORT_TRANSITIONS);
+                    foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                    {
+                        _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var transition = new AITransition
+                        {
+                            Decision = decisionComponent,
+                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetTrueStateLabel(),
+                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetFalseStateLabel()
+                        };
+                        aiState.Transitions.Add(transition);
+                    }
+
+                    // Sets all actions logic
+                    var actionPort = brainStateNode.GetInputPort(C.PORT_ACTIONS);
+                    foreach (var actionNode in actionPort.GetConnections().Select(connection => connection.node).OfType<AIActionNode>())
+                    {
+                        _actions.TryGetValue(actionNode, out var actionComponent);
+                        aiState.Actions.Add(actionComponent);
+                    }
+                }
+            }
+
+            #endregion
         }
 
         /// <summary>
