@@ -44,21 +44,21 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             inputStates = new List<NodePort>();
             foreach (var inNode in subgraph.GetStatesIn())
             {
-                var nodeName = inNode.GetPort("input").Connection.node.name;
-                nodeName += "-" + C.PORT_IN;
+                var fieldName = inNode.GetPort(C.PORT_INPUT).Connection.node.name;
+                fieldName += "-" + C.PORT_IN;
 
-            //    if (HasPort(nodeName)) continue;
-                inputStates.Add(AddDynamicInput(typeof(StateConnection), ConnectionType.Multiple, TypeConstraint.Strict, nodeName));
+                var inputState = AddDynamicInput(typeof(StateConnection), ConnectionType.Multiple, TypeConstraint.Strict, fieldName);
+                if(!inputStates.Contains(inputState)) inputStates.Add(inputState);
             }
 
             outputStates = new List<NodePort>();
             foreach (var outNode in subgraph.GetTransitionsOut())
             {
-                var nodeName = outNode.GetPort("output").Connection.node.name;
-                nodeName += "-" + C.PORT_OUT;
-              
-            //    if (HasPort(nodeName)) continue;
-                outputStates.Add(AddDynamicOutput(typeof(TransitionConnection), ConnectionType.Override, TypeConstraint.Strict, nodeName));
+                var fieldName = outNode.GetPort(C.PORT_OUTPUT).Connection.node.name;
+                fieldName += "-" + C.PORT_OUT;
+
+                var outputState = AddDynamicOutput(typeof(TransitionConnection), ConnectionType.Override, TypeConstraint.Strict, fieldName);
+                if(!outputStates.Contains(outputState)) outputStates.Add(outputState);
             }
         }
     }
