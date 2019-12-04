@@ -15,7 +15,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [NodeTint("#E95957")]
     [CreateNodeMenu("AI/Brain SubGraph")]
     [NodeWidth(200)]
-    public class AIBrainSubgraphNode : AINode
+    public class AIBrainSubgraphNode : AIStartSelectableNode
     {
       
         public AIBrainSubgraph subgraph;

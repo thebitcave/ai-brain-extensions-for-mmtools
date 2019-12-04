@@ -11,7 +11,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 	[NodeTint("#E63946")]
 	[CreateNodeMenu("AI/Brain State")]
 	[NodeWidth(180)]
-	public class AIBrainStateNode : AINode
+	public class AIBrainStateNode : AIStartSelectableNode
 	{
 		
 		/// <summary>

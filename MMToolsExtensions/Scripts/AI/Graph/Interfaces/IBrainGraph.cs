@@ -6,6 +6,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     public interface IBrainGraph
     {
-        AIBrainStateNode StartingNode { get; set; }
+        AIStartSelectableNode StartingNode { get; set; }
     }
 }

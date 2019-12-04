@@ -11,12 +11,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 	[Serializable, CreateAssetMenu(fileName = "New Brain Graph", menuName = "The Bit Cave/AI Brain Graph")]
 	public class AIBrainGraph : NodeGraph, IBrainGraph
 	{
-		public AIBrainStateNode startingNode;
+		public AIStartSelectableNode startingNode;
 
 		/// <summary>
 		/// Which state should be initialized as the starting one.
 		/// </summary>
-		public AIBrainStateNode StartingNode
+		public AIStartSelectableNode StartingNode
 		{
 			get => startingNode;
 			set => startingNode = value;
