@@ -40,19 +40,25 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public void GenerateDynamicPorts()
         {
-            ClearDynamicPorts();
+//            ClearDynamicPorts();
             inputStates = new List<NodePort>();
             foreach (var inNode in subgraph.GetStatesIn())
             {
                 var nodeName = inNode.GetPort("input").Connection.node.name;
-                inputStates.Add(AddDynamicInput(typeof(StateConnection), ConnectionType.Multiple, TypeConstraint.Strict, C.PORT_IN + ": " + nodeName));
+                nodeName += "-" + C.PORT_IN;
+
+            //    if (HasPort(nodeName)) continue;
+                inputStates.Add(AddDynamicInput(typeof(StateConnection), ConnectionType.Multiple, TypeConstraint.Strict, nodeName));
             }
 
             outputStates = new List<NodePort>();
             foreach (var outNode in subgraph.GetTransitionsOut())
             {
                 var nodeName = outNode.GetPort("output").Connection.node.name;
-                outputStates.Add(AddDynamicOutput(typeof(TransitionConnection), ConnectionType.Override, TypeConstraint.Strict, C.PORT_OUT + ": " + nodeName));
+                nodeName += "-" + C.PORT_OUT;
+              
+            //    if (HasPort(nodeName)) continue;
+                outputStates.Add(AddDynamicOutput(typeof(TransitionConnection), ConnectionType.Override, TypeConstraint.Strict, nodeName));
             }
         }
     }
