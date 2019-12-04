@@ -33,10 +33,11 @@
         public const string WARNING_GENERATE_SCRIPTS = "Generating the AI will remove all AI Brain, Action and Decision scripts present attached to this gameobject!";
 
         // Labels
-        public const string LABEL_SET_AS_STARTING_STATE = "Set as starting state";
-        public const string LABEL_GENERATE = "Generate";
-        public const string LABEL_REMOVE_AI_SCRIPTS = "Remove AI Scripts";
-        
+        public const string LABEL_SET_AS_STARTING_STATE     = "Set as starting state";
+        public const string LABEL_GENERATE                  = "Generate";
+        public const string LABEL_REMOVE_AI_SCRIPTS         = "Remove AI Scripts";
+        public const string LABEL_TRANSITION                = "Transition";
+
         // AI Brain Debugger Settings
 
         public const string DEBUG_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrainDebuggable component attached.";

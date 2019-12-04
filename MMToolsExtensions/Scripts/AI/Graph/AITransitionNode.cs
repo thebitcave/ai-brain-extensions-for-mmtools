@@ -1,4 +1,6 @@
-﻿namespace TheBitCave.MMToolsExtensions.AI.Graph
+﻿using UnityEngine;
+
+namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     /// <summary>
     /// A node representing a single Corgi <see cref="MoreMountains.Tools.AITransition"/>.
@@ -20,7 +22,12 @@
         /// <returns>The transition True state label</returns>
         public string GetTrueStateLabel()
         {
-            return GetOutputPort(C.PORT_TRUE_STATE).Connection == null ? "" : GetOutputPort(C.PORT_TRUE_STATE).Connection.node.name;
+            var connection = GetOutputPort(C.PORT_TRUE_STATE).Connection;
+            if (connection == null) return "";
+            if (!(GetOutputPort(C.PORT_TRUE_STATE).Connection.node is AIBrainSubgraphNode)) return connection.node.name;
+            var label = connection.node.name + ">";
+            label += connection.fieldName.Split('-')[0];
+            return label;
         }
 
         /// <summary>
@@ -29,7 +36,12 @@
         /// <returns>The transition False state label</returns>
         public string GetFalseStateLabel()
         {
-            return GetOutputPort(C.PORT_FALSE_STATE).Connection == null ? "" : GetOutputPort(C.PORT_FALSE_STATE).Connection.node.name;
+            var connection = GetOutputPort(C.PORT_FALSE_STATE).Connection;
+            if (connection == null) return "";
+            if (!(GetOutputPort(C.PORT_TRUE_STATE).Connection.node is AIBrainSubgraphNode)) return connection.node.name;
+            var label = connection.node.name + ">";
+            label += connection.fieldName.Split('-')[0];
+            return label;
         }
 
         /// <summary>
