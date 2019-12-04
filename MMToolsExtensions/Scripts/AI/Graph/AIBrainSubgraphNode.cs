@@ -17,7 +17,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [NodeWidth(200)]
     public class AIBrainSubgraphNode : AIStartSelectableNode
     {
-      
         public AIBrainSubgraph subgraph;
 
         /// <summary>
@@ -61,5 +60,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 if(!outputStates.Contains(outputState)) outputStates.Add(outputState);
             }
         }
+
+        public AIBrainGraph ParentGraph => graph as AIBrainGraph;
     }
 }
