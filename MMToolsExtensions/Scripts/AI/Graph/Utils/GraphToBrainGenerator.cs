@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using MoreMountains.Tools;
 using UnityEngine;
+using XNode;
 using Object = UnityEngine.Object;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
@@ -35,8 +36,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _actions = new Dictionary<AIActionNode, AIAction>();
             
             // Starts the generation process
-            GenerateActions();
-            GenerateDecisions();
+            GenerateActions(_aiBrainGraph);
+            GenerateDecisions(_aiBrainGraph);
+            GenerateSubGraphs(_aiBrainGraph);
             GenerateBrain(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
         }
 
@@ -49,17 +51,28 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _actions = new Dictionary<AIActionNode, AIAction>();
             
             // Starts the generation process
-            GenerateActions();
-            GenerateDecisions();
+            GenerateActions(_aiBrainGraph);
+            GenerateDecisions(_aiBrainGraph);
+            GenerateSubGraphs(_aiBrainGraph);
             InitBrain(brain);
+        }
+
+        private void GenerateSubGraphs(NodeGraph graph)
+        {
+            foreach (var subgraphNode in graph.nodes.OfType<AIBrainSubgraphNode>()
+                .Select(node => (node)))
+            {
+                GenerateActions(subgraphNode.subgraph);
+                GenerateDecisions(subgraphNode.subgraph);
+            }
         }
 
         /// <summary>
         /// Generates all <see cref="MoreMountains.Tools.AIDecision"/> components attaching them to the gameObject.
         /// </summary>
-        private void GenerateDecisions()
+        private void GenerateDecisions(NodeGraph graph)
         {
-            foreach (var decisionNode in _aiBrainGraph.nodes.OfType<AIDecisionNode>()
+            foreach (var decisionNode in graph.nodes.OfType<AIDecisionNode>()
                 .Select(node => (node)))
             {
                 var aiDecision =  decisionNode.AddDecisionComponent(_gameObject);
@@ -70,9 +83,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// Generates all <see cref="MoreMountains.Tools.AIAction"/> components attaching them to the gameObject.
         /// </summary>
-        private void GenerateActions()
+        private void GenerateActions(NodeGraph graph)
         {
-            foreach (var actionNode in _aiBrainGraph.nodes.OfType<AIActionNode>()
+            foreach (var actionNode in graph.nodes.OfType<AIActionNode>()
                 .Select(node => (node)))
             {
                 var aiAction =  actionNode.AddActionComponent(_gameObject);
