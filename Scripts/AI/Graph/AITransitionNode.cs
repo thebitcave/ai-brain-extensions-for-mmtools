@@ -37,7 +37,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             var connection = GetOutputPort(C.PORT_FALSE_STATE).Connection;
             if (connection == null) return "";
-            if (!(GetOutputPort(C.PORT_TRUE_STATE).Connection.node is AIBrainSubgraphNode)) return connection.node.name;
+            if (!(GetOutputPort(C.PORT_FALSE_STATE).Connection.node is AIBrainSubgraphNode)) return connection.node.name;
             var label = connection.node.name + ">";
             label += connection.fieldName.Split('-')[0];
             return label;
