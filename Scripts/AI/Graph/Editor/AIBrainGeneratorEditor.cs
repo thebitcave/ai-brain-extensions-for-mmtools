@@ -42,18 +42,17 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             EditorGUILayout.PropertyField(_generateDebugBrain);
             serializedObject.ApplyModifiedProperties();
 
-            EditorGUILayout.HelpBox(C.WARNING_GENERATE_SCRIPTS, MessageType.Warning);
-            
             if(GUILayout.Button(C.LABEL_GENERATE))
             {
                 _generator.Generate();
             }
-            
+
+            EditorGUILayout.HelpBox(C.WARNING_GENERATE_SCRIPTS, MessageType.Warning);
+
             if(GUILayout.Button(C.LABEL_REMOVE_AI_SCRIPTS))
             {
                 _generator.Cleanup();
             }
-
         }
     }
 }
