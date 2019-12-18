@@ -9,7 +9,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         private SerializedProperty _channelName;
         private SerializedProperty _stateName;
-
+        
         public override void OnBodyGUI()
         {
             base.OnBodyGUI();

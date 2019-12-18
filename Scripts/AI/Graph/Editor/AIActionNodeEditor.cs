@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 using XNodeEditor;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
@@ -8,6 +9,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         private SerializedProperty _label;
         private SerializedProperty _output;
+
+        public override void OnHeaderGUI()
+        {
+            var title = target.name.Replace("AI Action ", "");
+            GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+        }
 
         public override void OnBodyGUI()
         {
