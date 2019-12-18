@@ -256,6 +256,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             #endregion
         }
 
+        #region --- MASTER/SLAVE ---
+
+        public static void AddSlaveBrain(string channelName, GameObject gameObject)
+        {
+            var brainSlave = gameObject.AddComponent<AIBrainSlave>();
+            brainSlave.ChannelName = channelName;
+        }
+        
+        #endregion
+
         /// <summary>
         /// Removes all Corgi Brain, Actions and Decisions from the gameObject.
         /// </summary>

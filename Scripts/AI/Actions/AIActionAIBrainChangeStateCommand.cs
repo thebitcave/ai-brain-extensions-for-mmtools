@@ -1,5 +1,6 @@
 ﻿using MoreMountains.Tools;
 using TheBitCave.MMToolsExtensions.Tools;
+using UnityEngine;
 
 namespace TheBitCave.CorgiExensions.AI
 {
@@ -8,6 +9,7 @@ namespace TheBitCave.CorgiExensions.AI
     /// </summary>
     public class AIActionAIBrainChangeStateCommand : AIAction
     {
+        [Header("Master Brain Settings")]
         // The channel used to filter which slave should perform the action.
         public string ChannelName;
 

@@ -28,9 +28,17 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// The <see cref="MoreMountains.Tools.AIBrain"/> frequency (in seconds) at which to evaluate decisions
         public float decisionFrequency = 0;
 
+        /// Should the brain be generated as a debuggable one?
         [Header("Debug")]
         public bool generateDebugBrain;
 
+        /// Should the brain be generated as a slave one?
+        [Header("Slave Brain Settings")]
+        public bool generateSlaveBrain;
+
+        /// The slave channel name
+        [FormerlySerializedAs("channelName")] public string slaveChannelName;
+        
         private GraphToBrainGenerator _generator;
         
         /// <summary>
@@ -49,6 +57,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             // Starts the generation process
             _generator = new GraphToBrainGenerator(aiBrainGraph, gameObject);
             _generator.Generate(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
+            if (generateSlaveBrain) GraphToBrainGenerator.AddSlaveBrain(slaveChannelName, gameObject);
         }
 
         public void Cleanup()
