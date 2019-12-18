@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -263,7 +262,14 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             var brainSlave = gameObject.AddComponent<AIBrainSlave>();
             brainSlave.ChannelName = channelName;
         }
-        
+
+        public static void RemoveSlaveBrain(GameObject gameObject)
+        {
+            var brainSlave = gameObject.GetComponent<AIBrainSlave>();
+            if (brainSlave == null) return;
+            Object.DestroyImmediate(brainSlave);
+        }
+
         #endregion
 
         /// <summary>
@@ -271,6 +277,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// </summary>
         public static void Cleanup(GameObject go, bool excludeBrain = false)
         {
+            RemoveSlaveBrain(go);
+            
             if (!excludeBrain)
             {
                 var brain = go.GetComponent<AIBrain>();

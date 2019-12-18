@@ -11,6 +11,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [AddComponentMenu("The Bit Cave/AI/AI Brain Pluggable")] 
     public class AIBrainPluggable : AIBrain
     {
+        /// Should the brain be generated as a slave one?
+        [Header("Slave Brain Settings")]
+        public bool generateSlaveBrain;
+
+        /// The slave channel name
+        public string slaveChannelName;
+
         /// <summary>
         /// The brain asset.
         /// </summary>
@@ -32,6 +39,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             var graph = aiBrainGraphs[Random.Range(0, aiBrainGraphs.Count)];
             var generator = new GraphToBrainGenerator(graph, gameObject);
             generator.GeneratePluggable(this);
+            if (generateSlaveBrain) GraphToBrainGenerator.AddSlaveBrain(slaveChannelName, gameObject);
 
             base.Awake();
         }

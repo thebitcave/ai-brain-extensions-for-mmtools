@@ -37,7 +37,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public bool generateSlaveBrain;
 
         /// The slave channel name
-        [FormerlySerializedAs("channelName")] public string slaveChannelName;
+        public string slaveChannelName;
         
         private GraphToBrainGenerator _generator;
         
