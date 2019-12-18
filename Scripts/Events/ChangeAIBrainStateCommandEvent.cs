@@ -5,7 +5,7 @@ namespace TheBitCave.MMToolsExtensions.Tools
     /// <summary>
     /// Events used to control AIBrains
     /// </summar>
-    public struct AIBrainChangeStateCommandEvent
+    public struct ChangeAIBrainStateCommandEvent
     {
         // A name used to filter commands from the slave
         public string ChannelName;
@@ -22,7 +22,7 @@ namespace TheBitCave.MMToolsExtensions.Tools
         /// <param name="channelName">A name used to filter commands from the slave.</param>
         /// <param name="stateName">The State the slave brain should enter in.</param>
         /// <param name="target">// The brain target, if any.</param>
-        public AIBrainChangeStateCommandEvent(string channelName, string stateName, Transform target)
+        public ChangeAIBrainStateCommandEvent(string channelName, string stateName, Transform target)
         {
             ChannelName = channelName;
             StateName = stateName;

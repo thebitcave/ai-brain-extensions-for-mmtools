@@ -2,12 +2,12 @@
 using TheBitCave.MMToolsExtensions.Tools;
 using UnityEngine;
 
-namespace TheBitCave.CorgiExensions.AI
+namespace TheBitCave.MMToolsExtensions.AI
 {
     /// <summary>
     /// This action sends a change state command to all registered slave brains
     /// </summary>
-    public class AIActionAIBrainChangeStateCommand : AIAction
+    public class AIActionChangeAIBrainStateCommand : AIAction
     {
         [Header("Master Brain Settings")]
         // The channel used to filter which slave should perform the action.
@@ -21,7 +21,7 @@ namespace TheBitCave.CorgiExensions.AI
         /// </summary>
         public override void PerformAction()
         {
-            var evt = new AIBrainChangeStateCommandEvent(ChannelName, StateName, _brain.Target);
+            var evt = new ChangeAIBrainStateCommandEvent(ChannelName, StateName, _brain.Target);
             MMEventManager.TriggerEvent(evt);
         }
     }
