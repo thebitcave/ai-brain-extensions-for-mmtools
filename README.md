@@ -2,14 +2,14 @@
 
 This project is a set of tools developed to extend MoreMountains game engines like [Corgi Engine](https://assetstore.unity.com/packages/templates/systems/corgi-engine-2d-2-5d-platformer-26617?aid=1011lHJn) and [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636?aid=1011lHJn).
 
-# AI Brain Graph
+## 1. AI Brain Graph
 
 The AI Brain graph lets you create AIBrains systems by using a node system.
 
 ![AI Brain Graph](https://github.com/thebitcave/ai-brain-estensions-for-mmtools/blob/docs/doc-images/corgi-engine/tutorial_006.png)
 _AI Brain Graph for Corgi Engine_
 
-## Features
+### Features
 
 * AI Brain Graph including:
   * States
