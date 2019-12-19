@@ -34,11 +34,13 @@ The debugger tool is still experimental and a work in progress, but will let you
 * Force transitions during gameplay
 * Force brain target during gameplay
 
+## 3. Master/Slave Brains
+
+_[Coming Soon]_
+
 ## Documentation
 
-For full documentation please visit the dedicated [Wiki](https://github.com/thebitcave/ai-brain-graph-for-mmtools/wiki) and the Corgi/TopDown engine pages:
-
-* [AI Brain Graph for Corgi](https://github.com/thebitcave/ai-brain-graph-for-corgi)
+For full documentation please visit the dedicated [Wiki](https://github.com/thebitcave/ai-brain-graph-for-mmtools/wiki).
 
 ## Releases
 
