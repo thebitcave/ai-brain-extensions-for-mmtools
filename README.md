@@ -6,7 +6,8 @@ This project is a set of tools developed to extend MoreMountains game engines li
 
 The AI Brain graph lets you create AIBrains systems by using a node system.
 
-![AI Brain Graph](https://github.com/thebitcave/ai-brain-graph-for-corgi-engine/blob/docs/doc-images/tutorial_006.png)
+![AI Brain Graph](https://github.com/thebitcave/ai-brain-estensions-for-mmtools/blob/docs/doc-images/corgi-engine/tutorial_006.png)
+_AI Brain Graph for Corgi Engine_
 
 ## Features
 
