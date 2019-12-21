@@ -7,7 +7,7 @@ using UnityEngine;
 namespace TheBitCave.MMToolsExtensions
 {
     /// <summary>
-    /// This component is used to control the Corgi <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state.
+    /// This component is used to control the <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state.
     /// </summary>
     [RequireComponent(typeof(AIBrain))]
     public class CharacterBrainSlave : CharacterSimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
@@ -47,7 +47,7 @@ namespace TheBitCave.MMToolsExtensions
             if (!hasState) return;
             _aiBrain.Target = target;
             _aiBrain.TransitionToState(newStateName);
-            PlayAbilityStartFeedbacks();
+            PlayAbilityFeedbacks();
         }
         
         protected override void OnEnable()

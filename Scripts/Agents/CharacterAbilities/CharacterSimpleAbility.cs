@@ -31,9 +31,10 @@ namespace TheBitCave.MMToolsExtensions
         /// <summary>
         /// Plays the ability start sound effect
         /// </summary>
-        protected virtual void PlayAbilityStartFeedbacks()
+        protected virtual void PlayAbilityFeedbacks()
         {
-            AbilityFeedbacks?.PlayFeedbacks(this.transform.position);
+            if (AbilityFeedbacks == null) return;
+            AbilityFeedbacks.PlayFeedbacks(this.transform.position);
         }	
 
         protected virtual void OnEnable()

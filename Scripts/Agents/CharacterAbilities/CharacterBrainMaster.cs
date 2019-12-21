@@ -8,7 +8,7 @@ using UnityEngine;
 namespace TheBitCave.MMToolsExtensions
 {
     /// <summary>
-    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="CharacterBrainSlave"/> enabled.
+    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="TheBitCave.MMToolsExtensions.CharacterBrainSlave"/> enabled.
     /// </summary>
     public class CharacterBrainMaster : CharacterSimpleAbility
     {
@@ -24,7 +24,7 @@ namespace TheBitCave.MMToolsExtensions
         {
             var evt = new ChangeAIBrainStateCommandEvent(channelName, stateName, target);
             MMEventManager.TriggerEvent(evt);
-            PlayAbilityStartFeedbacks();
+            PlayAbilityFeedbacks();
         }
     }
 }
