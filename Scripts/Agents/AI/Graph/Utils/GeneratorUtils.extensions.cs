@@ -6,7 +6,7 @@ using MoreMountains.Tools;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
-    public partial class GraphToBrainGenerator
+    public partial class GeneratorUtils
     {
     }
 

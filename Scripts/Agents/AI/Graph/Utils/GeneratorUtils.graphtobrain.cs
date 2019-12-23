@@ -7,14 +7,14 @@ using Object = UnityEngine.Object;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
-    public partial class GraphToBrainGenerator
+    public partial class GeneratorUtils
     {
         private readonly AIBrainGraph _aiBrainGraph;
         private readonly GameObject _gameObject;
         private Dictionary<AIDecisionNode, AIDecision> _decisions;
         private Dictionary<AIActionNode, AIAction> _actions;
 
-        public GraphToBrainGenerator(AIBrainGraph graph, GameObject go)
+        public GeneratorUtils(AIBrainGraph graph, GameObject go)
         {
             _aiBrainGraph = graph;
             _gameObject = go;

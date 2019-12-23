@@ -32,7 +32,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         [Header("Debug Settings")]
         public bool generateDebugBrain;
 
-        private GraphToBrainGenerator _generator;
+        private GeneratorUtils _generatorUtils;
         
         /// <summary>
         /// Generates the <see cref="MoreMountains.Tools.AIBrain"/> system components (Brain, Actions and Decisions)
@@ -48,13 +48,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             }
 
             // Starts the generation process
-            _generator = new GraphToBrainGenerator(aiBrainGraph, gameObject);
-            _generator.Generate(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
+            _generatorUtils = new GeneratorUtils(aiBrainGraph, gameObject);
+            _generatorUtils.Generate(brainActive, actionsFrequency, decisionFrequency, generateDebugBrain);
         }
 
         public void Cleanup()
         {
-            GraphToBrainGenerator.Cleanup(gameObject);
+            GeneratorUtils.Cleanup(gameObject);
         }
     }
 }
