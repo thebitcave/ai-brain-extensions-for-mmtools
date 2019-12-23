@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.CorgiEngine;
 using MoreMountains.Tools;
 using TheBitCave.MMToolsExtensions.Tools;
@@ -9,20 +10,23 @@ namespace TheBitCave.MMToolsExtensions
     /// <summary>
     /// This component is used to control the <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state.
     /// </summary>
-    [RequireComponent(typeof(AIBrain))]
     public class CharacterBrainSlave : CharacterSimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
     {
         public override string HelpBoxText() { return "This component is used to control the AIBrain as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state."; }
 
         [Header("Slave Brain Settings")]
-        // An identifier used to filter commands from the master slave (if the channel name corresponds, the brain will transition to the desired state).
-        public string ChannelName;
-        
+        // A list of identifiers used to filter commands from the master brain (if a channel name corresponds, the brain will transition to the desired state).
+        public List<string> ChannelNames;
+
         private AIBrain _aiBrain;
         
         protected override void Start()
         {
             _aiBrain = GetComponent<AIBrain>();
+            if (_aiBrain == null)
+            {
+                Debug.LogError("CharacterBrainSlave needs an AIBrain: please add one to the character.");
+            }
         }
 
         /// <summary>
@@ -32,8 +36,10 @@ namespace TheBitCave.MMToolsExtensions
         /// <param name="changeAiBrainStateCommandEvent"></param>
         public virtual void OnMMEvent(ChangeAIBrainStateCommandEvent changeAiBrainStateCommandEvent)
         {
-            if (changeAiBrainStateCommandEvent.ChannelName != ChannelName) return;
-            TransitionToState(changeAiBrainStateCommandEvent.StateName, changeAiBrainStateCommandEvent.Target);
+            if (ChannelNames.Any(channelName => changeAiBrainStateCommandEvent.ChannelName == channelName))
+            {
+                TransitionToState(changeAiBrainStateCommandEvent.StateName, changeAiBrainStateCommandEvent.Target);
+            }
         }
 
         /// <summary>

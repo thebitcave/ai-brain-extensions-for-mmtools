@@ -257,10 +257,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         #region --- MASTER/SLAVE ---
 
-        public static void AddSlaveBrain(string channelName, GameObject gameObject)
+        public static void AddSlaveBrain(List<string> channelNames, GameObject gameObject)
         {
             var brainSlave = gameObject.AddComponent<CharacterBrainSlave>();
-            brainSlave.ChannelName = channelName;
+            brainSlave.ChannelNames = channelNames;
         }
 
         public static void RemoveSlaveBrain(GameObject gameObject)
@@ -277,8 +277,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// </summary>
         public static void Cleanup(GameObject go, bool excludeBrain = false)
         {
-            RemoveSlaveBrain(go);
-            
             if (!excludeBrain)
             {
                 var brain = go.GetComponent<AIBrain>();

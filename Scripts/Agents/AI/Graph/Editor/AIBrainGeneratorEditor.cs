@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEditor;
 
@@ -16,8 +17,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         protected SerializedProperty _actionsFrequency;
         protected SerializedProperty _decisionFrequency;
         protected SerializedProperty _generateDebugBrain;
-        protected SerializedProperty _generateSlaveBrain;
-        protected SerializedProperty _slaveChannelName;
 
         private AIBrainGenerator _generator;
         
@@ -31,8 +30,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _actionsFrequency = serializedObject.FindProperty("actionsFrequency");
             _decisionFrequency = serializedObject.FindProperty("decisionFrequency");
             _generateDebugBrain = serializedObject.FindProperty("generateDebugBrain");
-            _generateSlaveBrain = serializedObject.FindProperty("generateSlaveBrain");
-            _slaveChannelName = serializedObject.FindProperty("slaveChannelName");
         }
 
         public override void OnInspectorGUI()
@@ -44,8 +41,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             EditorGUILayout.PropertyField(_actionsFrequency);
             EditorGUILayout.PropertyField(_decisionFrequency);
             EditorGUILayout.PropertyField(_generateDebugBrain);
-            EditorGUILayout.PropertyField(_generateSlaveBrain);
-            if(_generateSlaveBrain.boolValue) EditorGUILayout.PropertyField(_slaveChannelName);
             serializedObject.ApplyModifiedProperties();
 
             EditorGUILayout.Space();
