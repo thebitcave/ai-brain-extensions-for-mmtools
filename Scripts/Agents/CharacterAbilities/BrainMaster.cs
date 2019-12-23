@@ -19,7 +19,7 @@ namespace TheBitCave.MMToolsExtensions
         /// <param name="target">The brain target (if any)</param>
         public virtual void SendCommand(string channelName, string stateName, Transform target)
         {
-            var evt = new ChangeAIBrainStateCommandEvent(channelName, stateName, target);
+            var evt = new ChangeAIBrainStateCommandEvent(channelName, stateName, target, gameObject);
             MMEventManager.TriggerEvent(evt);
             PlayAbilityFeedbacks();
         }

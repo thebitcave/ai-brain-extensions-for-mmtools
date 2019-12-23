@@ -3,6 +3,7 @@ using System.Linq;
 using MoreMountains.Tools;
 using TheBitCave.MMToolsExtensions.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions
 {
@@ -17,6 +18,9 @@ namespace TheBitCave.MMToolsExtensions
         // A list of identifiers used to filter commands from the master brain (if a channel name corresponds, the brain will transition to the desired state).
         public List<string> ChannelNames;
 
+        // The Slave will also listen for commands sent by the same gameObject.
+        public bool executeSelfSentCommands;
+        
         private AIBrain _aiBrain;
         
         protected override void Start()
@@ -35,6 +39,7 @@ namespace TheBitCave.MMToolsExtensions
         /// <param name="changeAiBrainStateCommandEvent"></param>
         public virtual void OnMMEvent(ChangeAIBrainStateCommandEvent changeAiBrainStateCommandEvent)
         {
+            if (!executeSelfSentCommands && changeAiBrainStateCommandEvent.Master == gameObject) return;
             if (ChannelNames.Any(channelName => changeAiBrainStateCommandEvent.ChannelName == channelName))
             {
                 TransitionToState(changeAiBrainStateCommandEvent.StateName, changeAiBrainStateCommandEvent.Target);
