@@ -1,16 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using MoreMountains.Feedbacks;
+﻿using MoreMountains.Feedbacks;
 using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions
 {
-    public class CharacterSimpleAbility : MonoBehaviour
+    /// <summary>
+    /// An engine agnostic, scaled-down ability component. Lets you work with feedbacks. 
+    /// </summary>
+    public class SimpleAbility : MonoBehaviour
     {
         /// This method is only used to display a helpbox text at the beginning of the ability's inspector
         public virtual string HelpBoxText() { return ""; }
 
-        [Header("Feedbacks Settings")]
         public MMFeedbacks AbilityFeedbacks;
 
         /// <summary>

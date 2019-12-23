@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using MoreMountains.Tools;
 using UnityEngine;
 using XNode;
@@ -9,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
-    public class GraphToBrainGenerator
+    public partial class GraphToBrainGenerator
     {
         private readonly AIBrainGraph _aiBrainGraph;
         private readonly GameObject _gameObject;
@@ -257,15 +255,24 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         #region --- MASTER/SLAVE ---
 
+        /// <summary>
+        /// Adds a Slave brain to a Character.
+        /// </summary>
+        /// <param name="channelNames"></param>
+        /// <param name="gameObject"></param>
         public static void AddSlaveBrain(List<string> channelNames, GameObject gameObject)
         {
-            var brainSlave = gameObject.AddComponent<CharacterBrainSlave>();
+            var brainSlave = gameObject.AddComponent<BrainSlave>();
             brainSlave.ChannelNames = channelNames;
         }
 
+        /// <summary>
+        /// Removes the Slave brain component from the character.
+        /// </summary>
+        /// <param name="gameObject"></param>
         public static void RemoveSlaveBrain(GameObject gameObject)
         {
-            var brainSlave = gameObject.GetComponent<CharacterBrainSlave>();
+            var brainSlave = gameObject.GetComponent<BrainSlave>();
             if (brainSlave == null) return;
             Object.DestroyImmediate(brainSlave);
         }
@@ -322,29 +329,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 }
                 break;
             }
-        }
-    }
-    
-    /// <summary>
-    /// Inspired by https://gamedev.stackexchange.com/questions/140797/check-if-a-game-objects-component-can-be-destroyed
-    /// </summary>
-    internal static class Extensions
-    {
-        private static bool Requires(MemberInfo obj, Type requirement)
-        {
-            return Attribute.IsDefined(obj, typeof(RequireComponent)) &&
-                   Attribute.GetCustomAttributes(obj, typeof(RequireComponent)).OfType<RequireComponent>()
-                       .Any(requireComponent => requireComponent.m_Type0.IsAssignableFrom(requirement));
-        }
-
-        internal static bool CanDestroyAIAction(this GameObject go, Type t)
-        {
-            return !go.GetComponents<AIAction>().Any(aiAction => Requires(aiAction.GetType(), t));
-        }
-        
-        internal static bool CanDestroyAIDecision(this GameObject go, Type t)
-        {
-            return !go.GetComponents<AIDecision>().Any(aiDecision => Requires(aiDecision.GetType(), t));
         }
     }
 }

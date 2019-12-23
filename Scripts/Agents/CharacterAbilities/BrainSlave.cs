@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using MoreMountains.CorgiEngine;
 using MoreMountains.Tools;
 using TheBitCave.MMToolsExtensions.Tools;
 using UnityEngine;
@@ -8,11 +7,11 @@ using UnityEngine;
 namespace TheBitCave.MMToolsExtensions
 {
     /// <summary>
-    /// This component is used to control the <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state.
+    /// This component is used to control the <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. When receiving an event if a channel corresponds, the brain will transition to the new state.
     /// </summary>
-    public class CharacterBrainSlave : CharacterSimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
+    public class BrainSlave : SimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
     {
-        public override string HelpBoxText() { return "This component is used to control the AIBrain as a slave from other parts of the application. If the channel corresponds, the brain will transition to the new state."; }
+        public override string HelpBoxText() { return "This component is used to control the AIBrain as a slave from other parts of the application. When receiving an event, if a channel corresponds the brain will transition to the new state."; }
 
         [Header("Slave Brain Settings")]
         // A list of identifiers used to filter commands from the master brain (if a channel name corresponds, the brain will transition to the desired state).

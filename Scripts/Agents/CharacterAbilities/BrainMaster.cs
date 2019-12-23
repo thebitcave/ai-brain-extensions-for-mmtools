@@ -1,16 +1,13 @@
-﻿using MoreMountains.CorgiEngine;
-using TheBitCave.MMToolsExtensions.Tools;
+﻿using TheBitCave.MMToolsExtensions.Tools;
 using MoreMountains.Tools;
-using TheBitCave.MMToolsExtensions;
-using TheBitCave.MMToolsExtensions.AI;
 using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions
 {
     /// <summary>
-    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="TheBitCave.MMToolsExtensions.CharacterBrainSlave"/> enabled.
+    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="BrainSlave"/> enabled.
     /// </summary>
-    public class CharacterBrainMaster : CharacterSimpleAbility
+    public class BrainMaster : SimpleAbility
     {
         public override string HelpBoxText() { return "This component allows your character to broadcast messages that will be caught and executed by AI characters with an AIBrainSlave enabled."; }
 
