@@ -51,11 +51,11 @@ namespace TheBitCave.MMToolsExtensions
         /// </summary>
         /// <param name="newStateName">The new state name</param>
         /// <param name="target">The brain target (if any)</param>
-        public virtual void TransitionToState(string newStateName, Transform target)
+        public virtual void TransitionToState(string newStateName, Transform target = null)
         {
             var hasState = _aiBrain.States.Any(state => state.StateName == newStateName);
             if (!hasState) return;
-            _aiBrain.Target = target;
+            if (target != null) _aiBrain.Target = target;
             _aiBrain.TransitionToState(newStateName);
             PlayAbilityFeedbacks();
         }
