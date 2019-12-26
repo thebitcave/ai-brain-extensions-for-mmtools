@@ -5,9 +5,9 @@ using UnityEngine;
 namespace TheBitCave.MMToolsExtensions
 {
     /// <summary>
-    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="BrainSlave"/> enabled.
+    /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="BrainSlaveAbility"/> enabled.
     /// </summary>
-    public class BrainMaster : SimpleAbility
+    public class BrainMasterAbility : SimpleAbility
     {
         public override string HelpBoxText() { return "This component allows your character to broadcast messages that will be caught and executed by AI characters with an AIBrainSlave enabled."; }
 

@@ -7,7 +7,7 @@ namespace TheBitCave.MMToolsExtensions.AI
     /// <summary>
     /// This action sends a change state command to all registered slave brains
     /// </summary>
-    [RequireComponent(typeof(BrainMaster))]
+    [RequireComponent(typeof(BrainMasterAbility))]
     public class AIActionChangeAIBrainStateCommand : AIAction
     {
         [Header("Master Brain Settings")]
@@ -17,12 +17,12 @@ namespace TheBitCave.MMToolsExtensions.AI
         // The state the slave should enter in.
         public string StateName;
 
-        protected BrainMaster _ability;
+        protected BrainMasterAbility _ability;
 
         protected override void Start()
         {
             base.Start();
-            _ability = GetComponent<BrainMaster>();
+            _ability = GetComponent<BrainMasterAbility>();
         }
 
         /// <summary>

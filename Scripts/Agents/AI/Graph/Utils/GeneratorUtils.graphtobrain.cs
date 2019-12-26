@@ -262,7 +262,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <param name="gameObject"></param>
         public static void AddSlaveBrain(List<string> channelNames, GameObject gameObject)
         {
-            var brainSlave = gameObject.AddComponent<BrainSlave>();
+            var brainSlave = gameObject.AddComponent<BrainSlaveAbility>();
             brainSlave.ChannelNames = channelNames;
         }
 
@@ -272,7 +272,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <param name="gameObject"></param>
         public static void RemoveSlaveBrain(GameObject gameObject)
         {
-            var brainSlave = gameObject.GetComponent<BrainSlave>();
+            var brainSlave = gameObject.GetComponent<BrainSlaveAbility>();
             if (brainSlave == null) return;
             Object.DestroyImmediate(brainSlave);
         }
