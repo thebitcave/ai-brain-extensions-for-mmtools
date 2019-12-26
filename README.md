@@ -40,7 +40,7 @@ _[Coming Soon]_
 
 ## Documentation
 
-For full documentation please visit the dedicated [Wiki](https://github.com/thebitcave/ai-brain-graph-for-mmtools/wiki).
+For full documentation please visit the [dedicated website](https://thebitcave.gitbook.io/ai-brain-extensions-docs/).
 
 ## Releases
 
