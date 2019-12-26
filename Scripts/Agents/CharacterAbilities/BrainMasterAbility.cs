@@ -15,11 +15,11 @@ namespace TheBitCave.MMToolsExtensions
         /// We broadcast a notification to all AIBrain Slaves
         /// </summary>
         /// <param name="channelName">An id used to filter messages</param>
-        /// <param name="stateName">The state the brain should transition to</param>
+        /// <param name="newStateName">The state the brain should transition to</param>
         /// <param name="target">The brain target (if any)</param>
-        public virtual void SendCommand(string channelName, string stateName, Transform target)
+        public virtual void SendCommand(string channelName, string newStateName, Transform target = null)
         {
-            var evt = new ChangeAIBrainStateCommandEvent(channelName, stateName, target, gameObject);
+            var evt = new ChangeAIBrainStateCommandEvent(channelName, newStateName, target, gameObject);
             MMEventManager.TriggerEvent(evt);
             PlayAbilityFeedbacks();
         }
