@@ -1,6 +1,4 @@
-﻿using MoreMountains.CorgiEngine;
-using MoreMountains.Tools;
-using TheBitCave.MMToolsExtensions.AI.Graph;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph

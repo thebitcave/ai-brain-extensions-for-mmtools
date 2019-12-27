@@ -1,5 +1,4 @@
-﻿using TheBitCave.MMToolsExtensions.AI.Graph;
-using UnityEditor;
+﻿using UnityEditor;
 using XNodeEditor;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
