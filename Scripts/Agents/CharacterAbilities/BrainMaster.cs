@@ -7,6 +7,7 @@ namespace TheBitCave.MMToolsExtensions
     /// <summary>
     /// This component allows your character to broadcast messages that will be caught and executed by AI characters with an <see cref="BrainSlave"/> enabled.
     /// </summary>
+    [AddComponentMenu("The Bit Cave/AI/Brain Master")] 
     public class BrainMaster : SimpleAbility
     {
         public override string HelpBoxText() { return "This component allows your character to broadcast messages that will be caught and executed by AI characters with an AIBrainSlave enabled."; }
