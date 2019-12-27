@@ -10,7 +10,7 @@ namespace TheBitCave.MMToolsExtensions
     /// <summary>
     /// This component is used to control the <see cref="MoreMountains.Tools.AIBrain"/> as a slave from other parts of the application. When receiving an event if a channel corresponds, the brain will transition to the new state.
     /// </summary>
-    public class BrainSlaveAbility : SimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
+    public class BrainSlave : SimpleAbility, MMEventListener<ChangeAIBrainStateCommandEvent>
     {
         public override string HelpBoxText() { return "This component is used to control the AIBrain as a slave from other parts of the application. When receiving an event, if a channel corresponds the brain will transition to the new state."; }
 
