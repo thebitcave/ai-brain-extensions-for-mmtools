@@ -19,8 +19,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnHeaderGUI()
         {
-            const string title = C.LABEL_COMMENT;
-            GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            GUILayout.Label(C.LABEL_COMMENT, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
 
         public override void OnBodyGUI()
@@ -35,7 +34,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             else
             {
                 EditorGUI.BeginDisabledGroup(true);
-                GUIStyle style = GUIStyle.none;
+                var style = GUIStyle.none;
                 style.wordWrap = true;
                 EditorGUILayout.TextArea(_node.comment, GUIStyle.none);
                 EditorGUI.EndDisabledGroup();

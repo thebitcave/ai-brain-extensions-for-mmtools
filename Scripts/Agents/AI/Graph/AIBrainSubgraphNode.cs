@@ -37,7 +37,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             GenerateDynamicPorts();
         }
 
-        public void GenerateDynamicPorts()
+        public virtual void GenerateDynamicPorts()
         {
 //            ClearDynamicPorts();
             inputStates = new List<NodePort>();

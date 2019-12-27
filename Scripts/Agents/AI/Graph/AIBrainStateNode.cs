@@ -6,7 +6,7 @@ using XNode;
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
 	/// <summary>
-	/// A node representing a single state in the Corgi <see cref="MoreMountains.Tools.AIBrain"/>.
+	/// A node representing a single state in the MMTools <see cref="MoreMountains.Tools.AIBrain"/>.
 	/// </summary>
 	[NodeTint("#E63946")]
 	[CreateNodeMenu("AI/Brain State")]

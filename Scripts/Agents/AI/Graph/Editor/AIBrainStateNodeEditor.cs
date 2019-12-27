@@ -44,6 +44,5 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             if (!(_node.graph is IBrainGraph graph)) return;
             if (!ReferenceEquals(graph.StartingNode, _node) && GUILayout.Button(C.LABEL_SET_AS_STARTING_STATE)) graph.StartingNode = _node;
         }
-
     }
 }

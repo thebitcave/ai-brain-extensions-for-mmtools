@@ -39,6 +39,8 @@
         public const string LABEL_TRANSITION                = "Transition";
         public const string LABEL_SELECTED_GRAPH            = "Selected Graph";
         public const string LABEL_COMMENT                   = "Comment";
+        public const string LABEL_ANY_STATE                 = "Any State";
+        public const string LABEL_STATE_ALIAS               = "State Alias";
 
         // AI Brain Debugger Settings
 
