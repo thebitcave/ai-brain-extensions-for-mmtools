@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 using UnityEditor;
 
@@ -42,17 +43,19 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             EditorGUILayout.PropertyField(_generateDebugBrain);
             serializedObject.ApplyModifiedProperties();
 
+            EditorGUILayout.Space();
+
+            if(GUILayout.Button(C.LABEL_REMOVE_AI_SCRIPTS))
+            {
+                _generator.Cleanup();
+            }
+
             if(GUILayout.Button(C.LABEL_GENERATE))
             {
                 _generator.Generate();
             }
 
             EditorGUILayout.HelpBox(C.WARNING_GENERATE_SCRIPTS, MessageType.Warning);
-
-            if(GUILayout.Button(C.LABEL_REMOVE_AI_SCRIPTS))
-            {
-                _generator.Cleanup();
-            }
         }
     }
 }

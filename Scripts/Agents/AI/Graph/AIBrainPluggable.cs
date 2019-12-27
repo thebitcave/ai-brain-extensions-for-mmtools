@@ -30,10 +30,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             // Starts the generation process
             var graph = aiBrainGraphs[Random.Range(0, aiBrainGraphs.Count)];
-            var generator = new GraphToBrainGenerator(graph, gameObject);
+            GraphName = graph.name;
+            var generator = new GeneratorUtils(graph, gameObject);
             generator.GeneratePluggable(this);
 
             base.Awake();
         }
+
+        public virtual string GraphName { get; private set; }
     }
 }

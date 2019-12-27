@@ -37,6 +37,7 @@
         public const string LABEL_GENERATE                  = "Generate";
         public const string LABEL_REMOVE_AI_SCRIPTS         = "Remove AI Scripts";
         public const string LABEL_TRANSITION                = "Transition";
+        public const string LABEL_SELECTED_GRAPH            = "Selected Graph";
 
         // AI Brain Debugger Settings
 
