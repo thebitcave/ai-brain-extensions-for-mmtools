@@ -213,8 +213,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         var transition = new AITransition
                         {
                             Decision = decisionComponent,
-                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetTrueStateLabel(),
-                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetFalseStateLabel()
+                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : GetSubgraphStateName(subgraphNode.name, transitionNode.GetTrueStateLabel()),
+                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : GetSubgraphStateName(subgraphNode.name, transitionNode.GetFalseStateLabel())
                         };
                         aiState.Transitions.Add(transition);
                     }
@@ -231,7 +231,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 foreach (var transitionsPort in subgraphNode.DynamicOutputs)
                 {
-                    var stateName = subgraphNode.name + ">" + transitionsPort.fieldName.Split('-')[0];
+                    var stateName = GetSubgraphStateName(subgraphNode.name, transitionsPort.fieldName.Split('-')[0]);
                     foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
                     {
                         _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);

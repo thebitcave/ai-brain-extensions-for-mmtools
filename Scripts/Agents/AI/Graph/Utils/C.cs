@@ -10,6 +10,7 @@
         public const string AI_BRAIN_SUBGRAPH_LABEL        = "AI Brain SubGraph";
         public const string SUBGRAPH_STATE_IN              = "State In";
         public const string SUBGRAPH_TRANSITION_OUT        = "Transition Out";
+        public const string SUBGRAPH_CONNECTION_SYMBOL     = ">";
                  
         // Port names
         public const string PORT_OUTPUT                    = "output";
