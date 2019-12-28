@@ -13,6 +13,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [NodeTint("#E8DB7D")]
     public class AICommentNode : AINode
     {
-        public string comment;
+        public string comment = C.LABEL_INSERT_COMMENT;
     }
 }

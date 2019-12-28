@@ -36,7 +36,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 EditorGUI.BeginDisabledGroup(true);
                 var style = GUIStyle.none;
                 style.wordWrap = true;
-                EditorGUILayout.TextArea(_node.comment, GUIStyle.none);
+                EditorGUILayout.TextArea(_node.comment, style);
                 EditorGUI.EndDisabledGroup();
             }
 
