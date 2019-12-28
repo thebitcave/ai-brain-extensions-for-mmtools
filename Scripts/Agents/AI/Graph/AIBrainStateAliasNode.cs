@@ -14,5 +14,6 @@
         /// </summary>
         [Input(connectionType = ConnectionType.Multiple, typeConstraint = TypeConstraint.Strict)] public StateConnection statesIn;
 
+        public string stateName;
     }
 }

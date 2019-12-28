@@ -8,8 +8,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// This node can be used to add comments and notes on the brain graph.
     /// It won't be used during AIBrain generation.
     /// </summary>
-    [NodeWidth(250)]
-    [CreateNodeMenu("AI/Comment")]
+    [NodeWidth(200)]
+    [CreateNodeMenu("Comment")]
     [NodeTint("#E8DB7D")]
     public class AICommentNode : AINode
     {
