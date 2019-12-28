@@ -23,28 +23,33 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnHeaderGUI()
         {
-            GUILayout.Label(C.LABEL_STATE_ALIAS, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+       //     GUILayout.Label(C.LABEL_STATE_ALIAS, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            _node.name = _node.stateName;
+            GUILayout.Label(_node.stateName, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
         
         public override void OnBodyGUI()
         {
-            var optionsList = new List<string>();
-            foreach (var node in _node.graph.nodes.OfType<AIBrainStateNode>())
-            {
-                optionsList.Add(node.name);
-            }
-            var options = optionsList.ToArray();
-            _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
             _statesIn = serializedObject.FindProperty("statesIn");
 
-            EditorGUILayout.Space();
+            if (Selection.activeObject == _node)
+            {
+                var optionsList = new List<string>();
+                foreach (var node in _node.graph.nodes.OfType<AIBrainStateNode>())
+                {
+                    optionsList.Add(node.name);
+                }
+
+                var options = optionsList.ToArray();
+                _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
+
+                EditorGUILayout.Space();
+                _node.stateName = options[_stateIndex];
+            }
 
             serializedObject.Update();
             NodeEditorGUILayout.PropertyField(_statesIn);
             serializedObject.ApplyModifiedProperties();
-
-            _node.stateName = options[_stateIndex];
         }
-
     }
 }
