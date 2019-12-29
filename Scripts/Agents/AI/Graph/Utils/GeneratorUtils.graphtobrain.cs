@@ -203,6 +203,24 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             foreach (var subgraphNode in _aiBrainGraph.nodes.OfType<AIBrainSubgraphNode>()
                 .Select(node => node))
             {
+                // Looks for all subgraph 'AnyState' transitions
+                var localAnyStateTransitions = new List<AITransition>();
+                foreach (var anyStateNode in subgraphNode.subgraph.nodes.OfType<AIBrainAnyStateNode>())
+                {
+                    var transitionsPort = anyStateNode.GetOutputPort(C.PORT_TRANSITIONS);
+                    foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                    {
+                        _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var transition = new AITransition
+                        {
+                            Decision = decisionComponent,
+                            TrueState = GetSubgraphStateName(subgraphNode.name, transitionNode.GetTrueStateLabel()),
+                            FalseState = GetSubgraphStateName(subgraphNode.name, transitionNode.GetFalseStateLabel()) 
+                        };
+                        localAnyStateTransitions.Add(transition);
+                    }
+                }
+                // Sets all brain states
                 foreach (var brainStateNode in subgraphNode.subgraph.nodes.OfType<AIBrainStateNode>()
                     .Select(node => node))
                 {
@@ -243,6 +261,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     }
                     // Adds all global AnyState transitions
                     foreach (var transition in globalAnyStateTransitions)
+                    {
+                        aiState.Transitions.Add(transition);
+                    }
+                    // Adds all local AnyState transitions
+                    foreach (var transition in localAnyStateTransitions)
                     {
                         aiState.Transitions.Add(transition);
                     }

@@ -10,6 +10,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         public static string GetSubgraphStateName(string subgraphNodeName, string stateName)
         {
+            if (string.IsNullOrEmpty(stateName)) return "";
             return subgraphNodeName + C.SUBGRAPH_CONNECTION_SYMBOL + stateName;
         }
         
