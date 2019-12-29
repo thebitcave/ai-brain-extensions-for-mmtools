@@ -125,6 +125,23 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             #region --- MAIN GRAPH ---
 
+            // Looks for all 'AnyState' transitions
+            var globalAnyStateTransitions = new List<AITransition>();
+            foreach (var anyStateNode in _aiBrainGraph.nodes.OfType<AIBrainAnyStateNode>())
+            {
+                var transitionsPort = anyStateNode.GetOutputPort(C.PORT_TRANSITIONS);
+                foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                {
+                    _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                    var transition = new AITransition
+                    {
+                        Decision = decisionComponent,
+                        TrueState = transitionNode.GetTrueStateLabel(),
+                        FalseState = transitionNode.GetFalseStateLabel()
+                    };
+                    globalAnyStateTransitions.Add(transition);
+                }
+            }
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
                 .Select(node => node))
@@ -161,6 +178,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         TrueState = transitionNode.GetTrueStateLabel(),
                         FalseState = transitionNode.GetFalseStateLabel()
                     };
+                    aiState.Transitions.Add(transition);
+                }
+
+                // Adds all global AnyState transitions
+                foreach (var transition in globalAnyStateTransitions)
+                {
                     aiState.Transitions.Add(transition);
                 }
 
@@ -216,6 +239,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                             TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : GetSubgraphStateName(subgraphNode.name, transitionNode.GetTrueStateLabel()),
                             FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : GetSubgraphStateName(subgraphNode.name, transitionNode.GetFalseStateLabel())
                         };
+                        aiState.Transitions.Add(transition);
+                    }
+                    // Adds all global AnyState transitions
+                    foreach (var transition in globalAnyStateTransitions)
+                    {
                         aiState.Transitions.Add(transition);
                     }
 
