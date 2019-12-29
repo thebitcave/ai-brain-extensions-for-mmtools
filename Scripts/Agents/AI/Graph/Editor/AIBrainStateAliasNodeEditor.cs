@@ -23,7 +23,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnHeaderGUI()
         {
-       //     GUILayout.Label(C.LABEL_STATE_ALIAS, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
             _node.name = _node.stateName;
             GUILayout.Label(_node.stateName, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
         }
@@ -38,6 +37,13 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 foreach (var node in _node.graph.nodes.OfType<AIBrainStateNode>())
                 {
                     optionsList.Add(node.name);
+                }
+                foreach (var node in _node.graph.nodes.OfType<AIBrainSubgraphNode>())
+                {
+                    foreach (var stateName in node.inputStates.Select(inputState => GeneratorUtils.GetSubgraphStateName(node.name, inputState.fieldName)))
+                    {
+                        optionsList.Add(stateName);
+                    }
                 }
 
                 var options = optionsList.ToArray();
