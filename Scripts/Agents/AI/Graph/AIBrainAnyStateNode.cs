@@ -6,12 +6,14 @@
     /// </summary>
     [NodeTint("#E63946")]
     [CreateNodeMenu("AI/Brain Any State")]
-    [NodeWidth(180)]
+    [NodeWidth(190)]
     public class AIBrainAnyStateNode : AINode
     {
         /// <summary>
         /// Transitions to exit this state
         /// </summary>
         [Output(connectionType = ConnectionType.Multiple)] public TransitionConnection transitions;
+
+        public bool canTransitionToSelf;
     }
 }
