@@ -8,7 +8,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     public class AIBrainAnyStateNodeEditor : NodeEditor
     {
         private SerializedProperty _transitions;
-        private SerializedProperty _canTransitionToSelf;
 
         public override void OnHeaderGUI()
         {
@@ -17,12 +16,9 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public override void OnBodyGUI()
         {
             _transitions = serializedObject.FindProperty("transitions");
-            _canTransitionToSelf = serializedObject.FindProperty("canTransitionToSelf");
 
             serializedObject.Update();
             NodeEditorGUILayout.PropertyField(_transitions);
-            EditorGUIUtility.labelWidth = 135;
-            NodeEditorGUILayout.PropertyField(_canTransitionToSelf);
             serializedObject.ApplyModifiedProperties();
         }
 

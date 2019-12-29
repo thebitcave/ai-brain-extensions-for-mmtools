@@ -13,7 +13,5 @@
         /// Transitions to exit this state
         /// </summary>
         [Output(connectionType = ConnectionType.Multiple)] public TransitionConnection transitions;
-
-        public bool canTransitionToSelf;
     }
 }
