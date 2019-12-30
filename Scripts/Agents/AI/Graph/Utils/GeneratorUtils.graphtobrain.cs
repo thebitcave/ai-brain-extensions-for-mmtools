@@ -336,8 +336,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             };
             return clone;
         }
-        
-        public static void RemoveTransitionsToSelf(AIState aiState)
+
+        private static void RemoveTransitionsToSelf(AIState aiState)
         {
             var removableTransitions = new List<AITransition>();
             foreach (var transition in aiState.Transitions)
