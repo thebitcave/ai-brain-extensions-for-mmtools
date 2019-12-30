@@ -23,8 +23,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnHeaderGUI()
         {
-            _node.name = _node.stateName;
-            GUILayout.Label(_node.stateName, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            _node.name = !string.IsNullOrEmpty(_node.stateName) ? _node.stateName : C.LABEL_STATE_ALIAS;
+            base.OnHeaderGUI();
         }
         
         public override void OnBodyGUI()
@@ -46,11 +46,18 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     }
                 }
 
-                var options = optionsList.ToArray();
-                _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
-
-                EditorGUILayout.Space();
-                _node.stateName = options[_stateIndex];
+                if (optionsList.Count > 0)
+                {
+                    var options = optionsList.ToArray();
+                    _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
+                    EditorGUILayout.Space();
+                    _node.stateName = options[_stateIndex];
+                }
+                else
+                {
+                    EditorGUILayout.LabelField(C.LABEL_NO_STATE_AVAILABLE);
+                    EditorGUILayout.Space();
+                }
             }
 
             serializedObject.Update();

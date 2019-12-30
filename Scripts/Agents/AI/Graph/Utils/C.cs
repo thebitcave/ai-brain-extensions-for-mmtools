@@ -43,6 +43,7 @@
         public const string LABEL_INSERT_COMMENT            = "Insert Comment";
         public const string LABEL_ANY_STATE                 = "Any State";
         public const string LABEL_STATE_ALIAS               = "State Alias";
+        public const string LABEL_NO_STATE_AVAILABLE        = "No State Available";
 
         // Colors
         public const string COLOR_STARTING_STATE            = "#E63946";
