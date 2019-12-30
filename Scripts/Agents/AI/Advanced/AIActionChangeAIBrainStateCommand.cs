@@ -1,6 +1,7 @@
 ﻿using MoreMountains.Tools;
 using TheBitCave.MMToolsExtensions.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions.AI
 {
@@ -12,7 +13,7 @@ namespace TheBitCave.MMToolsExtensions.AI
     {
         [Header("Master Brain Settings")]
         // The channel used to filter which slave should perform the action.
-        public string ChannelName;
+        public StateCommandChannel Channel;
 
         // The state the slave should enter in.
         public string StateName;
@@ -30,7 +31,7 @@ namespace TheBitCave.MMToolsExtensions.AI
         /// </summary>
         public override void PerformAction()
         {
-            _ability.SendCommand(ChannelName, StateName, _brain.Target);
+            _ability.SendCommand(Channel, StateName, _brain.Target);
         }
     }
 }

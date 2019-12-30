@@ -1,5 +1,6 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
@@ -9,14 +10,14 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [CreateNodeMenu("AI/Action/Extensions/Change AIBrain State Command")]
     public class AIActionChangeAIBrainStateCommandNode : AIActionNode
     {
-        public string channelName;
+        public StateCommandChannel channel;
         public string stateName;
 
         public override AIAction AddActionComponent(GameObject go)
         {
             var action = go.AddComponent<AIActionChangeAIBrainStateCommand>();
             action.Label = label;
-            action.ChannelName = channelName;
+            action.Channel = channel;
             action.StateName = stateName;
             return action;
         }

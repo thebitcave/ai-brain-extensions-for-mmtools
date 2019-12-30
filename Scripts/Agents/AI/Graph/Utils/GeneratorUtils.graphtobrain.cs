@@ -324,12 +324,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// Adds a Slave brain to a Character.
         /// </summary>
-        /// <param name="channelNames"></param>
+        /// <param name="channels"></param>
         /// <param name="gameObject"></param>
-        public static void AddSlaveBrain(List<string> channelNames, GameObject gameObject)
+        public static void AddSlaveBrain(List<StateCommandChannel> channels, GameObject gameObject)
         {
             var brainSlave = gameObject.AddComponent<BrainSlave>();
-            brainSlave.ChannelNames = channelNames;
+            brainSlave.Channels = channels;
         }
 
         /// <summary>

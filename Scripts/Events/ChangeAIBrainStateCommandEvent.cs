@@ -7,8 +7,8 @@ namespace TheBitCave.MMToolsExtensions.Tools
     /// </summar>
     public struct ChangeAIBrainStateCommandEvent
     {
-        // A name used to filter commands from the slave
-        public string ChannelName;
+        // Data used to filter commands from the slave
+        public StateCommandChannel Channel;
         
         // The State the slave brain should enter in
         public string StateName;
@@ -22,13 +22,13 @@ namespace TheBitCave.MMToolsExtensions.Tools
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="channelName">A name used to filter commands from the slave.</param>
+        /// <param name="channel">Data used to filter commands from the slave.</param>
         /// <param name="stateName">The State the slave brain should enter in.</param>
         /// <param name="target">The brain target, if any.</param>
         /// <param name="master">The sending gameObject.</param>
-        public ChangeAIBrainStateCommandEvent(string channelName, string stateName, Transform target, GameObject master = null)
+        public ChangeAIBrainStateCommandEvent(StateCommandChannel channel, string stateName, Transform target, GameObject master = null)
         {
-            ChannelName = channelName;
+            Channel = channel;
             StateName = stateName;
             Target = target;
             Master = master;

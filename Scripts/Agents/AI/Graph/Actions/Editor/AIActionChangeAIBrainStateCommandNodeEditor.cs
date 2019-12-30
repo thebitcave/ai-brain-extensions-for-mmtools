@@ -6,7 +6,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     [CustomNodeEditor(typeof(AIActionChangeAIBrainStateCommandNode))]
     public class AIActionChangeAIBrainStateCommandNodeEditor : AIActionNodeEditor
     {
-        private SerializedProperty _channelName;
+        private SerializedProperty _channel;
         private SerializedProperty _stateName;
         
         public override void OnBodyGUI()
@@ -14,11 +14,11 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             base.OnBodyGUI();
             
             EditorGUIUtility.labelWidth = 100;
-            _channelName = serializedObject.FindProperty("channelName");
+            _channel = serializedObject.FindProperty("channel");
             _stateName = serializedObject.FindProperty("stateName");
 
             serializedObject.Update();
-            NodeEditorGUILayout.PropertyField(_channelName);
+            NodeEditorGUILayout.PropertyField(_channel);
             NodeEditorGUILayout.PropertyField(_stateName);
             serializedObject.ApplyModifiedProperties();
         }
