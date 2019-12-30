@@ -23,11 +23,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public override Color GetTint()
         {
             if (!(_node.graph is IBrainGraph graph)) return base.GetTint();
-
-            // TODO
-            var c = new Color();
-            ColorUtility.TryParseHtmlString("#E63946", out c);
-
+            ColorUtility.TryParseHtmlString(C.COLOR_STARTING_STATE, out var c);
             return ReferenceEquals(graph.StartingNode, _node) ? c : base.GetTint();
         }
 

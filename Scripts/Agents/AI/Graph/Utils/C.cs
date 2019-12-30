@@ -44,8 +44,10 @@
         public const string LABEL_ANY_STATE                 = "Any State";
         public const string LABEL_STATE_ALIAS               = "State Alias";
 
-        // AI Brain Debugger Settings
+        // Colors
+        public const string COLOR_STARTING_STATE            = "#E63946";
 
+        // AI Brain Debugger Settings
         public const string DEBUG_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrainDebuggable component attached.";
         public const string DEBUG_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
         public const string DEBUG_GAMEOBJECT_DISABLED = "GameObject is disabled: please enable it to start debugging.";
