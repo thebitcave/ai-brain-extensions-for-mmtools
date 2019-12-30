@@ -4,7 +4,7 @@
     /// A node representing an alias for the <see cref="TheBitCave.MMToolsExtensions.AI.Graph.AIBrainStateNode"/>.
     /// It is used to create shortcuts and make the graph more readable.
     /// </summary>
-    [NodeTint("#E63946")]
+    [NodeTint("#E95957")]
     [CreateNodeMenu("AI/Brain State Alias")]
     [NodeWidth(180)]
     public class AIBrainStateAliasNode : AINode

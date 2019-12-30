@@ -16,7 +16,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             
             _node = target as AIBrainSubgraphNode;
         }
-
+ 
         public override void OnHeaderGUI() {
             GUI.color = Color.white;
 

@@ -11,34 +11,30 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         public override void OnCreate()
         {
             base.OnCreate();
-            
+
             _node = target as AIBrainStateNode;
         }
 
-        public override void OnHeaderGUI() {
-            GUI.color = Color.white;
+        public override void OnHeaderGUI()
+        {
+            base.OnHeaderGUI();
+        }
+        
+        public override Color GetTint()
+        {
+            if (!(_node.graph is IBrainGraph graph)) return base.GetTint();
 
-            if (_node == null) return;
+            // TODO
+            var c = new Color();
+            ColorUtility.TryParseHtmlString("#E63946", out c);
 
-            if (!(_node.graph is IBrainGraph graph)) return;
-            
-            var title = target.name;
-            if (ReferenceEquals(graph.StartingNode, _node))
-            {
-                title = "[>>] " + target.name;
-            }
-            else
-            {
-                GUI.color = new Color(.8f, .8f, .8f);
-            }
-            GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
-            
-            GUI.color = Color.white;
+            return ReferenceEquals(graph.StartingNode, _node) ? c : base.GetTint();
         }
 
-        public override void OnBodyGUI() {
+        public override void OnBodyGUI()
+        {
             base.OnBodyGUI();
-            
+
             if (_node == null) return;
 
             if (!(_node.graph is IBrainGraph graph)) return;
