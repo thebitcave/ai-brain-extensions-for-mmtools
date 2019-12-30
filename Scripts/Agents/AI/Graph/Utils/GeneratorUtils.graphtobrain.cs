@@ -125,6 +125,26 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
             #region --- MAIN GRAPH ---
 
+            // Looks for all 'AnyState' transitions
+            var globalAnyStateTransitions = new List<AITransition>();
+            foreach (var anyStateNode in _aiBrainGraph.nodes.OfType<AIBrainAnyStateNode>())
+            {
+                var transitionsPort = anyStateNode.GetOutputPort(C.PORT_TRANSITIONS);
+                foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                {
+                    _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                    var trueStateLabel = transitionNode.GetTrueStateLabel();
+                    var falseStateLabel = transitionNode.GetFalseStateLabel();
+                    if (string.IsNullOrEmpty(trueStateLabel) && string.IsNullOrEmpty(falseStateLabel)) continue;
+                    var transition = new AITransition
+                    {
+                        Decision = decisionComponent,
+                        TrueState = trueStateLabel,
+                        FalseState = falseStateLabel
+                    };
+                    globalAnyStateTransitions.Add(transition);
+                }
+            }
             // Get all states and initialize them
             foreach (var brainStateNode in _aiBrainGraph.nodes.OfType<AIBrainStateNode>()
                 .Select(node => node))
@@ -155,12 +175,21 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
                 {
                     _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                    var trueStateLabel = transitionNode.GetTrueStateLabel();
+                    var falseStateLabel = transitionNode.GetFalseStateLabel();
+                    if (string.IsNullOrEmpty(trueStateLabel) && string.IsNullOrEmpty(falseStateLabel)) continue;
                     var transition = new AITransition
                     {
                         Decision = decisionComponent,
-                        TrueState = transitionNode.GetTrueStateLabel(),
-                        FalseState = transitionNode.GetFalseStateLabel()
+                        TrueState = trueStateLabel,
+                        FalseState = falseStateLabel
                     };
+                    aiState.Transitions.Add(transition);
+                }
+
+                // Adds all global AnyState transitions
+                foreach (var transition in globalAnyStateTransitions)
+                {
                     aiState.Transitions.Add(transition);
                 }
 
@@ -180,6 +209,27 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             foreach (var subgraphNode in _aiBrainGraph.nodes.OfType<AIBrainSubgraphNode>()
                 .Select(node => node))
             {
+                // Looks for all subgraph 'AnyState' transitions
+                var localAnyStateTransitions = new List<AITransition>();
+                foreach (var anyStateNode in subgraphNode.subgraph.nodes.OfType<AIBrainAnyStateNode>())
+                {
+                    var transitionsPort = anyStateNode.GetOutputPort(C.PORT_TRANSITIONS);
+                    foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
+                    {
+                        _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var trueStateLabel = GetSubgraphStateName(subgraphNode.name, transitionNode.GetTrueStateLabel());
+                        var falseStateLabel = GetSubgraphStateName(subgraphNode.name, transitionNode.GetFalseStateLabel());
+                        if (string.IsNullOrEmpty(trueStateLabel) && string.IsNullOrEmpty(falseStateLabel)) continue;
+                        var transition = new AITransition
+                        {
+                            Decision = decisionComponent,
+                            TrueState = trueStateLabel,
+                            FalseState = falseStateLabel 
+                        };
+                        localAnyStateTransitions.Add(transition);
+                    }
+                }
+                // Sets all brain states
                 foreach (var brainStateNode in subgraphNode.subgraph.nodes.OfType<AIBrainStateNode>()
                     .Select(node => node))
                 {
@@ -210,12 +260,25 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
                     {
                         _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var trueStateLabel = GetSubgraphStateName(subgraphNode.name, transitionNode.GetTrueStateLabel());
+                        var falseStateLabel = GetSubgraphStateName(subgraphNode.name, transitionNode.GetFalseStateLabel());
+                        if (string.IsNullOrEmpty(trueStateLabel) && string.IsNullOrEmpty(falseStateLabel)) continue;
                         var transition = new AITransition
                         {
                             Decision = decisionComponent,
-                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetTrueStateLabel(),
-                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : subgraphNode.name + ">" + transitionNode.GetFalseStateLabel()
+                            TrueState = trueStateLabel,
+                            FalseState = falseStateLabel
                         };
+                        aiState.Transitions.Add(transition);
+                    }
+                    // Adds all global AnyState transitions
+                    foreach (var transition in globalAnyStateTransitions)
+                    {
+                        aiState.Transitions.Add(transition);
+                    }
+                    // Adds all local AnyState transitions
+                    foreach (var transition in localAnyStateTransitions)
+                    {
                         aiState.Transitions.Add(transition);
                     }
 
@@ -231,15 +294,18 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 
                 foreach (var transitionsPort in subgraphNode.DynamicOutputs)
                 {
-                    var stateName = subgraphNode.name + ">" + transitionsPort.fieldName.Split('-')[0];
+                    var stateName = GetSubgraphStateName(subgraphNode.name, transitionsPort.fieldName.Split('-')[0]);
                     foreach (var transitionNode in transitionsPort.GetConnections().Select(connection => connection.node).OfType<AITransitionNode>())
                     {
                         _decisions.TryGetValue(transitionNode.GetDecision(), out var decisionComponent);
+                        var trueStateLabel = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : transitionNode.GetTrueStateLabel();
+                        var falseStateLabel = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : transitionNode.GetFalseStateLabel();
+                        if (string.IsNullOrEmpty(trueStateLabel) && string.IsNullOrEmpty(falseStateLabel)) continue;
                         var transition = new AITransition
                         {
                             Decision = decisionComponent,
-                            TrueState = string.IsNullOrEmpty(transitionNode.GetTrueStateLabel()) ? "" : transitionNode.GetTrueStateLabel(),
-                            FalseState = string.IsNullOrEmpty(transitionNode.GetFalseStateLabel()) ? "" : transitionNode.GetFalseStateLabel()
+                            TrueState = trueStateLabel,
+                            FalseState = falseStateLabel
                         };
                         foreach (var state in brain.States.Where(state => state.StateName == stateName))
                         {
@@ -258,12 +324,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// Adds a Slave brain to a Character.
         /// </summary>
-        /// <param name="channelNames"></param>
+        /// <param name="channels"></param>
         /// <param name="gameObject"></param>
-        public static void AddSlaveBrain(List<string> channelNames, GameObject gameObject)
+        public static void AddSlaveBrain(List<StateCommandChannel> channels, GameObject gameObject)
         {
             var brainSlave = gameObject.AddComponent<BrainSlave>();
-            brainSlave.ChannelNames = channelNames;
+            brainSlave.Channels = channels;
         }
 
         /// <summary>

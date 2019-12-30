@@ -26,6 +26,5 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             NodeEditorGUILayout.PropertyField(_output);
             serializedObject.ApplyModifiedProperties();
         }
-
     }
 }

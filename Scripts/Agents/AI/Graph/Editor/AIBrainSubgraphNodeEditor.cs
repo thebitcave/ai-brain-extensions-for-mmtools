@@ -16,26 +16,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             
             _node = target as AIBrainSubgraphNode;
         }
-
-        public override void OnHeaderGUI() {
-            GUI.color = Color.white;
-
-            if (_node == null) return;
-
-            if (!(_node.graph is IBrainGraph graph)) return;
-            
-            var title = target.name;
-            if (ReferenceEquals(graph.StartingNode, _node))
-            {
-                title = "[>>] " + target.name;
-            }
-            else
-            {
-                GUI.color = new Color(.8f, .8f, .8f);
-            }
-            GUILayout.Label(title, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
-            
-            GUI.color = Color.white;
+ 
+        public override Color GetTint()
+        {
+            if (!(_node.graph is IBrainGraph graph)) return base.GetTint();
+            ColorUtility.TryParseHtmlString(C.COLOR_STARTING_STATE, out var c);
+            return ReferenceEquals(graph.StartingNode, _node) ? c : base.GetTint();
         }
 
         public override void OnBodyGUI()

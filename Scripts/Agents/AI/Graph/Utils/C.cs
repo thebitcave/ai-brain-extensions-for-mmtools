@@ -10,6 +10,7 @@
         public const string AI_BRAIN_SUBGRAPH_LABEL        = "AI Brain SubGraph";
         public const string SUBGRAPH_STATE_IN              = "State In";
         public const string SUBGRAPH_TRANSITION_OUT        = "Transition Out";
+        public const string SUBGRAPH_CONNECTION_SYMBOL     = ">";
                  
         // Port names
         public const string PORT_OUTPUT                    = "output";
@@ -38,9 +39,15 @@
         public const string LABEL_REMOVE_AI_SCRIPTS         = "Remove AI Scripts";
         public const string LABEL_TRANSITION                = "Transition";
         public const string LABEL_SELECTED_GRAPH            = "Selected Graph";
+        public const string LABEL_COMMENT                   = "Comment";
+        public const string LABEL_INSERT_COMMENT            = "Insert Comment";
+        public const string LABEL_ANY_STATE                 = "Any State";
+        public const string LABEL_STATE_ALIAS               = "State Alias";
+
+        // Colors
+        public const string COLOR_STARTING_STATE            = "#E63946";
 
         // AI Brain Debugger Settings
-
         public const string DEBUG_NO_AIBRAIN_COMPONENT = "Please select a GameObject in scene with an AIBrainDebuggable component attached.";
         public const string DEBUG_APPLICATION_NOT_PLAYING = "Application is not playing: hit Play button to start debugging.";
         public const string DEBUG_GAMEOBJECT_DISABLED = "GameObject is disabled: please enable it to start debugging.";

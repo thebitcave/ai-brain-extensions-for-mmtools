@@ -12,7 +12,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     /// <summary>
     /// A node representing a brain subgraph.
     /// </summary>
-    [NodeTint("#E95957")]
     [CreateNodeMenu("AI/Brain SubGraph")]
     [NodeWidth(200)]
     public class AIBrainSubgraphNode : AIStartSelectableNode
@@ -37,7 +36,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             GenerateDynamicPorts();
         }
 
-        public void GenerateDynamicPorts()
+        public virtual void GenerateDynamicPorts()
         {
 //            ClearDynamicPorts();
             inputStates = new List<NodePort>();

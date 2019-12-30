@@ -17,10 +17,10 @@ namespace TheBitCave.MMToolsExtensions
 
         [Header("Slave Brain Settings")]
         // A list of identifiers used to filter commands from the master brain (if a channel name corresponds, the brain will transition to the desired state).
-        public List<string> ChannelNames;
+        public List<StateCommandChannel> Channels;
 
         // The Slave will also listen for commands sent by the same gameObject.
-        public bool executeSelfSentCommands;
+        public bool ExecuteSelfSentCommands;
         
         private AIBrain _aiBrain;
         
@@ -40,8 +40,8 @@ namespace TheBitCave.MMToolsExtensions
         /// <param name="changeAiBrainStateCommandEvent"></param>
         public virtual void OnMMEvent(ChangeAIBrainStateCommandEvent changeAiBrainStateCommandEvent)
         {
-            if (!executeSelfSentCommands && changeAiBrainStateCommandEvent.Master == gameObject) return;
-            if (ChannelNames.Any(channelName => changeAiBrainStateCommandEvent.ChannelName == channelName))
+            if (!ExecuteSelfSentCommands && changeAiBrainStateCommandEvent.Master == gameObject) return;
+            if (Channels.Any(channelName => changeAiBrainStateCommandEvent.Channel == channelName))
             {
                 TransitionToState(changeAiBrainStateCommandEvent.StateName, changeAiBrainStateCommandEvent.Target);
             }
