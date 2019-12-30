@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using XNodeEditor;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
@@ -8,6 +9,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         private AIBrainStateNode _node;
 
+        private SerializedProperty _canTransitionToSelf;
+
         public override void OnCreate()
         {
             base.OnCreate();
@@ -15,11 +18,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             _node = target as AIBrainStateNode;
         }
 
-        public override void OnHeaderGUI()
-        {
-            base.OnHeaderGUI();
-        }
-        
         public override Color GetTint()
         {
             if (!(_node.graph is IBrainGraph graph)) return base.GetTint();
@@ -29,10 +27,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnBodyGUI()
         {
+            EditorGUIUtility.labelWidth = 155;
             base.OnBodyGUI();
 
+            _canTransitionToSelf = serializedObject.FindProperty("canTransitionToSelf");
+            
             if (_node == null) return;
-
             if (!(_node.graph is IBrainGraph graph)) return;
             if (!ReferenceEquals(graph.StartingNode, _node) && GUILayout.Button(C.LABEL_SET_AS_STARTING_STATE)) graph.StartingNode = _node;
         }

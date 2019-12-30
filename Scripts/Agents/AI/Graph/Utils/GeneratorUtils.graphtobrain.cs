@@ -161,6 +161,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     Transitions = new AITransitionsList(),
                     Actions = new AIActionsList()
                 };
+
+                // Adds the state to the brain
                 if (brainStateNode.graph is IBrainGraph graph && graph.StartingNode == brainStateNode)
                 {
                     brain.States.Insert(0, aiState);                    
@@ -188,10 +190,12 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 }
 
                 // Adds all global AnyState transitions
-                foreach (var transition in globalAnyStateTransitions)
+                foreach (var clone in globalAnyStateTransitions.Select(GetTransitionClone))
                 {
-                    aiState.Transitions.Add(transition);
+                    aiState.Transitions.Add(clone);
                 }
+
+                if (!brainStateNode.canTransitionToSelf) RemoveTransitionsToSelf(aiState);
 
                 // Sets all actions logic
                 var actionPort = brainStateNode.GetInputPort(C.PORT_ACTIONS);
@@ -246,6 +250,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         Transitions = new AITransitionsList(),
                         Actions = new AIActionsList()
                     };
+
+                    // Adds the state to the brain
                     if (brainStateNode.graph is IBrainGraph graph && graph.StartingNode == brainStateNode && subgraphNode.ParentGraph.StartingNode == subgraphNode)
                     {
                         brain.States.Insert(0, aiState);                    
@@ -272,15 +278,17 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         aiState.Transitions.Add(transition);
                     }
                     // Adds all global AnyState transitions
-                    foreach (var transition in globalAnyStateTransitions)
+                    foreach (var clone in globalAnyStateTransitions.Select(GetTransitionClone))
                     {
-                        aiState.Transitions.Add(transition);
+                        aiState.Transitions.Add(clone);
                     }
                     // Adds all local AnyState transitions
-                    foreach (var transition in localAnyStateTransitions)
+                    foreach (var clone in localAnyStateTransitions.Select(GetTransitionClone))
                     {
-                        aiState.Transitions.Add(transition);
+                        aiState.Transitions.Add(clone);
                     }
+
+                    if (!brainStateNode.canTransitionToSelf) RemoveTransitionsToSelf(aiState);
 
                     // Sets all actions logic
                     var actionPort = brainStateNode.GetInputPort(C.PORT_ACTIONS);
@@ -290,7 +298,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                         aiState.Actions.Add(actionComponent);
                     }
                 }
-                
                 
                 foreach (var transitionsPort in subgraphNode.DynamicOutputs)
                 {
@@ -319,6 +326,32 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             #endregion
         }
 
+        private static AITransition GetTransitionClone(AITransition transition)
+        {
+            var clone = new AITransition()
+            {
+                Decision = transition.Decision,
+                TrueState = transition.TrueState,
+                FalseState = transition.FalseState
+            };
+            return clone;
+        }
+        
+        public static void RemoveTransitionsToSelf(AIState aiState)
+        {
+            var removableTransitions = new List<AITransition>();
+            foreach (var transition in aiState.Transitions)
+            {
+                if (transition.TrueState == aiState.StateName) transition.TrueState = "";
+                if (transition.FalseState == aiState.StateName) transition.FalseState = "";
+                if (string.IsNullOrEmpty(transition.TrueState) && string.IsNullOrEmpty(transition.FalseState)) removableTransitions.Add(transition);
+            }
+            foreach (var transition in removableTransitions)
+            {
+                    aiState.Transitions.Remove(transition);
+            }
+        }
+        
         #region --- MASTER/SLAVE ---
 
         /// <summary>
