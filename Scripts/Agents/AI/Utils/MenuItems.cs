@@ -21,7 +21,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         /// <summary>
         /// Removes all the AI System (AIBrain, AIActions and AIDecisions)
         /// </summary>
-        [MenuItem("GameObject/AI Brain/RemoveAIBrainSystem _PGUP", false, 100)]
+        [MenuItem("GameObject/AI Brain/RemoveAIBrainSystem", false, 100)]
         private static void RemoveAIBrainSystem()
         {
             if (Selection.activeGameObject == null) return;
