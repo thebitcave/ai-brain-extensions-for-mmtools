@@ -23,8 +23,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnHeaderGUI()
         {
-            _node.name = _node.stateName;
-            GUILayout.Label(_node.stateName, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            _node.name = !string.IsNullOrEmpty(_node.stateName) ? _node.stateName : C.LABEL_STATE_ALIAS;
+            base.OnHeaderGUI();
         }
         
         public override void OnBodyGUI()
@@ -46,16 +46,48 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                     }
                 }
 
-                var options = optionsList.ToArray();
-                _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
-
-                EditorGUILayout.Space();
-                _node.stateName = options[_stateIndex];
+                if (optionsList.Count > 0)
+                {
+                    var options = optionsList.ToArray();
+                    _stateIndex = EditorGUILayout.Popup(_stateIndex, options);
+                    EditorGUILayout.Space();
+                    _node.stateName = options[_stateIndex];
+                }
+                else
+                {
+                    EditorGUILayout.LabelField(C.LABEL_NO_STATE_AVAILABLE);
+                    EditorGUILayout.Space();
+                }
             }
 
             serializedObject.Update();
             NodeEditorGUILayout.PropertyField(_statesIn);
             serializedObject.ApplyModifiedProperties();
         }
+        
+        /// <summary> Add items for the context menu when right-clicking this node. Disables the 'Rename' option. </summary>
+        public override void AddContextMenuItems(GenericMenu menu)
+        {
+            // Actions if only one node is selected
+            if (Selection.objects.Length == 1 && Selection.activeObject is XNode.Node)
+            {
+                var node = Selection.activeObject as XNode.Node;
+                menu.AddItem(new GUIContent("Move To Top"), false, () => NodeEditorWindow.current.MoveNodeToTop(node));
+                menu.AddDisabledItem(new GUIContent("Rename"));
+            }
+
+            // Add actions to any number of selected nodes
+            menu.AddItem(new GUIContent("Copy"), false, NodeEditorWindow.current.CopySelectedNodes);
+            menu.AddItem(new GUIContent("Duplicate"), false, NodeEditorWindow.current.DuplicateSelectedNodes);
+            menu.AddItem(new GUIContent("Remove"), false, NodeEditorWindow.current.RemoveSelectedNodes);
+
+            // Custom sections if only one node is selected
+            if (Selection.objects.Length == 1 && Selection.activeObject is XNode.Node)
+            {
+                var node = Selection.activeObject as XNode.Node;
+                menu.AddCustomContextMenuItems(node);
+            }
+        }
+
     }
 }

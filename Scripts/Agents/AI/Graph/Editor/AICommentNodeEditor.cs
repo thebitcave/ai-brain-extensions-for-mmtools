@@ -24,23 +24,19 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
 
         public override void OnBodyGUI()
         {
-            var wordWrap = EditorStyles.textField.wordWrap;
-            EditorStyles.textField.wordWrap = true;
+            var style = GUIStyle.none;
+            style.wordWrap = true;
 
             if (Selection.activeObject == _node)
             {
-                _node.comment = EditorGUILayout.TextArea(_node.comment);
+                _node.comment = EditorGUILayout.TextArea(_node.comment, style);
             }
             else
             {
                 EditorGUI.BeginDisabledGroup(true);
-                var style = GUIStyle.none;
-                style.wordWrap = true;
                 EditorGUILayout.TextArea(_node.comment, style);
                 EditorGUI.EndDisabledGroup();
             }
-
-            EditorStyles.textField.wordWrap = wordWrap;
         }
     }
 }

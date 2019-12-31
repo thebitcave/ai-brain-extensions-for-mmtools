@@ -47,6 +47,19 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             window.titleContent.text = target.name;
             RefreshCanvas();
         }
-
+        
+        public override void AddContextMenuItems(GenericMenu menu) {
+            base.AddContextMenuItems(menu);
+            var graph = target as IBrainGraph;
+            menu.AddSeparator("");
+            if (graph.IsNodeCollapseModeOn)
+            {
+                menu.AddItem(new GUIContent("Disable Node Collapsing"), false, () => graph.DisableNodeCollapse());
+            }
+            else
+            {
+                menu.AddItem(new GUIContent("Enable Node Collapsing"), false, () => graph.EnableNodeCollapse());
+            }
+        }
     }
 }
