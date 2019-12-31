@@ -10,6 +10,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private SerializedProperty _label;
         private SerializedProperty _output;
 
+        protected AIActionNode ActionNode => target as AIActionNode;
+
         public override void OnHeaderGUI()
         {
             var title = target.name.Replace("AI Action ", "");
@@ -26,5 +28,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             NodeEditorGUILayout.PropertyField(_output);
             serializedObject.ApplyModifiedProperties();
         }
+
+        protected bool CollapseNodeOn => ActionNode.BrainGraph.IsNodeCollapseModeOn && !Selection.activeObject == target;
     }
 }

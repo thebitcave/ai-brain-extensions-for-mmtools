@@ -14,6 +14,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     {
         public AIStartSelectableNode startingNode;
         
+        protected bool _nodeCollapseModeOn;
+
         /// <summary>
         /// Which state should be initialized as the starting one.
         /// </summary>
@@ -37,5 +39,22 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
                 .ToList();
         }
 
+        public bool IsNodeCollapseModeOn => _nodeCollapseModeOn;
+
+        /// <summary>
+        /// Enables node collapsing.
+        /// </summary>
+        public void EnableNodeCollapse()
+        {
+            _nodeCollapseModeOn = true;
+        }
+
+        /// <summary>
+        /// Disables node collapsing.
+        /// </summary>
+        public void DisableNodeCollapse()
+        {
+            _nodeCollapseModeOn = false;
+        }
     }
 }
