@@ -9,12 +9,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private SerializedProperty _channel;
         private SerializedProperty _stateName;
         
-        public override void OnBodyGUI()
+        protected override void SerializeAdditionalProperties()
         {
-            base.OnBodyGUI();
-            
-            if (CollapseNodeOn) return;
-
             EditorGUIUtility.labelWidth = 100;
             _channel = serializedObject.FindProperty("channel");
             _stateName = serializedObject.FindProperty("stateName");

@@ -27,8 +27,16 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             NodeEditorGUILayout.PropertyField(_label);
             NodeEditorGUILayout.PropertyField(_output);
             serializedObject.ApplyModifiedProperties();
+            
+            if (CollapseNodeOn) return;
+            SerializeAdditionalProperties();
         }
 
+        protected virtual void SerializeAdditionalProperties()
+        {
+            // Add Action properties.
+        }
+        
         protected bool CollapseNodeOn => ActionNode.BrainGraph.IsNodeCollapseModeOn && Selection.activeObject != target;
     }
 }
