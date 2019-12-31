@@ -64,5 +64,30 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             NodeEditorGUILayout.PropertyField(_statesIn);
             serializedObject.ApplyModifiedProperties();
         }
+        
+        /// <summary> Add items for the context menu when right-clicking this node. Disables the 'Rename' option. </summary>
+        public override void AddContextMenuItems(GenericMenu menu)
+        {
+            // Actions if only one node is selected
+            if (Selection.objects.Length == 1 && Selection.activeObject is XNode.Node)
+            {
+                var node = Selection.activeObject as XNode.Node;
+                menu.AddItem(new GUIContent("Move To Top"), false, () => NodeEditorWindow.current.MoveNodeToTop(node));
+                menu.AddDisabledItem(new GUIContent("Rename"));
+            }
+
+            // Add actions to any number of selected nodes
+            menu.AddItem(new GUIContent("Copy"), false, NodeEditorWindow.current.CopySelectedNodes);
+            menu.AddItem(new GUIContent("Duplicate"), false, NodeEditorWindow.current.DuplicateSelectedNodes);
+            menu.AddItem(new GUIContent("Remove"), false, NodeEditorWindow.current.RemoveSelectedNodes);
+
+            // Custom sections if only one node is selected
+            if (Selection.objects.Length == 1 && Selection.activeObject is XNode.Node)
+            {
+                var node = Selection.activeObject as XNode.Node;
+                menu.AddCustomContextMenuItems(node);
+            }
+        }
+
     }
 }
