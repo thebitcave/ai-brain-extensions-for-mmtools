@@ -10,7 +10,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         private SerializedProperty _label;
         private SerializedProperty _output;
         
-        protected AIDecisionNode ActionNode => target as AIDecisionNode;
+        protected AIDecisionNode DecisionNode => target as AIDecisionNode;
 
         public override void OnHeaderGUI()
         {
@@ -29,7 +29,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             serializedObject.ApplyModifiedProperties();
         }
 
-        protected bool CollapseNodeOn => ActionNode.BrainGraph.IsNodeCollapseModeOn && Selection.activeObject != target;
+        protected bool CollapseNodeOn => DecisionNode.BrainGraph.IsNodeCollapseModeOn && Selection.activeObject != target;
 
     }
 }
