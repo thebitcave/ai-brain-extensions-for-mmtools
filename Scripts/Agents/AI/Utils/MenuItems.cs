@@ -7,7 +7,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
     public static class MenuItems
     {
         
-        [MenuItem("GameObject/AI Brain/Remove Brain System", true, 30)]
+        [MenuItem("GameObject/The Bit Cave/Remove Brain System", true, 30)]
         private static bool RemoveAIBrainSystemValidator()
         {
             if (Selection.activeGameObject == null) return false;
