@@ -13,6 +13,8 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         {
             base.OnBodyGUI();
             
+            if (CollapseNodeOn) return;
+
             EditorGUIUtility.labelWidth = 100;
             _channel = serializedObject.FindProperty("channel");
             _stateName = serializedObject.FindProperty("stateName");

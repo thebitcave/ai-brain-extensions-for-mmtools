@@ -29,6 +29,6 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             serializedObject.ApplyModifiedProperties();
         }
 
-        protected bool CollapseNodeOn => ActionNode.BrainGraph.IsNodeCollapseModeOn && !Selection.activeObject == target;
+        protected bool CollapseNodeOn => ActionNode.BrainGraph.IsNodeCollapseModeOn && Selection.activeObject != target;
     }
 }
