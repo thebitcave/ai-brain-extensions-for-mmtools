@@ -7,7 +7,7 @@ namespace TheBitCave.MMToolsExtensions.AI
     /// A subclass to the regular Corgi <see cref="MoreMountains.Tools.AIBrain"/> used
     /// for debugging purposes.
     /// </summary>
-    [AddComponentMenu("Corgi Extensions/AI/AI Brain Debuggable")]
+    [AddComponentMenu("The Bit Cave/AI/AI Brain Debuggable")]
     public class AIBrainDebuggable : AIBrain
     {
 
