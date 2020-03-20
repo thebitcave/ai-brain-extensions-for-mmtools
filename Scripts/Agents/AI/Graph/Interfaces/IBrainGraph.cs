@@ -1,8 +1,4 @@
-﻿using System;
-using UnityEngine;
-using XNode;
-
-namespace TheBitCave.MMToolsExtensions.AI.Graph
+﻿namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     public interface IBrainGraph
     {

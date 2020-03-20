@@ -1,5 +1,4 @@
-﻿using System;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using UnityEngine;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph

@@ -1,6 +1,5 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
