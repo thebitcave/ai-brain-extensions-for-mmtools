@@ -4,7 +4,7 @@ namespace TheBitCave.MMToolsExtensions.Tools
 {
     /// <summary>
     /// Events used to control AIBrains
-    /// </summar>
+    /// </summary>
     public struct ChangeAIBrainStateCommandEvent
     {
         // Data used to filter commands from the slave

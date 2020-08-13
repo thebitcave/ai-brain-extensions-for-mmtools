@@ -1,7 +1,5 @@
 ﻿using MoreMountains.Tools;
-using TheBitCave.MMToolsExtensions.Tools;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TheBitCave.MMToolsExtensions.AI
 {

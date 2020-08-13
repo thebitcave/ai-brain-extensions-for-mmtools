@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace TheBitCave.MMToolsExtensions.AI.Graph
+﻿namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     /// <summary>
     /// A node representing a single Corgi <see cref="MoreMountains.Tools.AITransition"/>.

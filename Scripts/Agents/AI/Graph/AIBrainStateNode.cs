@@ -1,9 +1,4 @@
-﻿using System;
-using UnityEditor;
-using UnityEngine;
-using XNode;
-
-namespace TheBitCave.MMToolsExtensions.AI.Graph
+﻿namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
 	/// <summary>
 	/// A node representing a single state in the MMTools <see cref="MoreMountains.Tools.AIBrain"/>.
