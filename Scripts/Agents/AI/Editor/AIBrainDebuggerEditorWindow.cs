@@ -218,6 +218,9 @@ namespace TheBitCave.MMToolsExtensions.AI
                 EditorGUI.EndDisabledGroup();
                 EditorGUILayout.EndHorizontal();
                 
+                EditorGUILayout.LabelField("Target: " + _selectedBrain.Target);
+                EditorGUILayout.LabelField("LastKnownTargetPosition: " + _selectedBrain._lastKnownTargetPosition);
+
                 #endregion
                 
                 EditorGUILayout.EndScrollView();
