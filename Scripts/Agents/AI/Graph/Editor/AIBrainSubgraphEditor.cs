@@ -24,7 +24,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             window.titleContent.text = target.name;
         }
 
-        public override void AddContextMenuItems(GenericMenu menu) {
+        public override void AddContextMenuItems(GenericMenu menu, Type compatibleType = null, XNode.NodePort.IO direction = XNode.NodePort.IO.Input) {
             base.AddContextMenuItems(menu);
             var graph = target as IBrainGraph;
             menu.AddSeparator("");

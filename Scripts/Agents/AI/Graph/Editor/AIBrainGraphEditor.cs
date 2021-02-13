@@ -1,8 +1,5 @@
 ﻿using System;
-using System.CodeDom;
-using System.Dynamic;
 using System.Linq;
-using Packages.Rider.Editor.Util;
 using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
@@ -48,7 +45,7 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
             RefreshCanvas();
         }
         
-        public override void AddContextMenuItems(GenericMenu menu) {
+        public override void AddContextMenuItems(GenericMenu menu, Type compatibleType = null, XNode.NodePort.IO direction = XNode.NodePort.IO.Input) {
             base.AddContextMenuItems(menu);
             var graph = target as IBrainGraph;
             menu.AddSeparator("");
