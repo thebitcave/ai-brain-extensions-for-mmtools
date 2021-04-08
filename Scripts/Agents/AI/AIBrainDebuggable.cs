@@ -40,6 +40,8 @@ namespace TheBitCave.MMToolsExtensions.AI
             }
             
             TimeInThisState += Time.deltaTime;
+            
+            StoreLastKnownPosition();
         }
         
         /// <summary>
