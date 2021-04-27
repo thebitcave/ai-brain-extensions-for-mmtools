@@ -1,7 +1,5 @@
 # AI Brain Extensions for MMTools
 
-_Note: this project is opensource and self maintained. If you find it useful, please consider supporting it on [Patreon](https://www.patreon.com/thebitcave) or on [GitHub Sponsors](https://github.com/sponsors/marcosecchi)._
-
 This project is a set of tools developed to extend MoreMountains game engines like [Corgi Engine](https://assetstore.unity.com/packages/templates/systems/corgi-engine-2d-2-5d-platformer-26617?aid=1011lHJn) and [Top Down Engine](https://assetstore.unity.com/packages/templates/systems/topdown-engine-89636?aid=1011lHJn).
 
 The tools are available on the Unity Asset Store:
