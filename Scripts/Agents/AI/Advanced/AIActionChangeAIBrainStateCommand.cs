@@ -18,9 +18,9 @@ namespace TheBitCave.MMToolsExtensions.AI
 
         protected BrainMaster _ability;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             _ability = GetComponent<BrainMaster>();
         }
 
