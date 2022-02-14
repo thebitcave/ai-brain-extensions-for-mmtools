@@ -3,7 +3,7 @@
 namespace TheBitCave.MMToolsExtensions.AI.Graph
 {
     /// <summary>
-    /// This component generates a Corgi AI Brain system, starting from an <see cref="TheBitCave.CorgiExensions.AI.Graph.AIBrainGraph"/> asset.
+    /// This component generates a Corgi AI Brain system, starting from an <see cref="TheBitCave.MMToolsExtensions.AI.Graph.AIBrainGraph"/> asset.
     /// </summary>
     [AddComponentMenu("The Bit Cave/AI/AI Brain Generator")] 
     public class AIBrainGenerator : MonoBehaviour
@@ -18,10 +18,10 @@ namespace TheBitCave.MMToolsExtensions.AI.Graph
         
         /// The <see cref="MoreMountains.Tools.AIBrain"/> frequency (in seconds) at which to perform actions (lower values : higher frequency, high values : lower frequency but better performance)
         [Space]
-        public float actionsFrequency = 0;
+        public float actionsFrequency;
         
         /// The <see cref="MoreMountains.Tools.AIBrain"/> frequency (in seconds) at which to evaluate decisions
-        public float decisionFrequency = 0;
+        public float decisionFrequency;
 
         /// Should the brain be generated as a debuggable one?
         [Header("Debug Settings")]
